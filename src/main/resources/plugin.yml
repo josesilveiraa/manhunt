@@ -1,5 +1,5 @@
-name: Huntsman
-version: ${project.version}
+name: Manhunt
+version: 1.0
 main: org.josesilveiraa.huntsman.Main
 api-version: 1.16
 authors: [ Josesilveiraa ]

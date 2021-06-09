@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -26,6 +27,17 @@ public class StartCommand extends BaseCommand {
             return;
         }
 
+        if(args.length != 0) {
+            Player target = Bukkit.getPlayer(args[0]);
+
+            if(target == null || !target.isOnline()) {
+                p.sendMessage("§cWhoops! It looks like this player is invalid or offline.");
+                return;
+            }
+
+            Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target);
+        }
+
         int playerAmount = Bukkit.getOnlinePlayers().size();
 
         if(playerAmount < 3) {
@@ -36,28 +48,32 @@ public class StartCommand extends BaseCommand {
 
         Player random = getRandomPlayer();
 
-        ItemStack compass = new ItemBuilder(Material.COMPASS, 1)
-                .name("§aTracker")
-                .lore("§7Use it to track the victim.")
-                .addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1)
-                .flags(ItemFlag.HIDE_ENCHANTS)
-                .build();
+        Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), random);
 
-        Main.getGame().setOccurring(true);
-
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            UUID uuid = player.getUniqueId();
-
-
-            if(!(uuid.toString().equals(random.getUniqueId().toString()))) {
-                Main.getGame().getHunters().add(player);
-                player.getInventory().addItem(compass);
-                player.sendTitle("§aYou're the hunter!", "§7Hunt the runner!", 20, 20, 20);
-            } else {
-                Main.getGame().setRunner(player);
-                player.sendTitle("§cYou're the runner!", "§7Run from the hunters!", 20, 20 ,20);
-            }
-        }
+//        ItemStack compass = new ItemBuilder(Material.COMPASS, 1)
+//                .name("§aTracker")
+//                .lore("§7Use it to track the victim.")
+//                .addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1)
+//                .flags(ItemFlag.HIDE_ENCHANTS)
+//                .build();
+//
+//        Main.getGame().setOccurring(true);
+//
+//        for(Player player : Bukkit.getOnlinePlayers()) {
+//            UUID uuid = player.getUniqueId();
+//
+//
+//            if(!(uuid.toString().equals(random.getUniqueId().toString()))) {
+//                Main.getGame().getHunters().add(player);
+//                player.getInventory().addItem(compass);
+//                player.sendTitle("§aYou're the hunter!", "§7Hunt the runner!", 20, 20, 20);
+//                player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
+//            } else {
+//                Main.getGame().setRunner(player);
+//                player.sendTitle("§cYou're the runner!", "§7Run from the hunters!", 20, 20 ,20);
+//                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1f, 1f);
+//            }
+//        }
     }
 
 
