@@ -24,6 +24,7 @@ public class GameManager {
                 .lore("§7Use it to track the victim.")
                 .addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1)
                 .flags(ItemFlag.HIDE_ENCHANTS)
+                .setCompassTarget(runner)
                 .build();
 
         for(Player player : runners) {

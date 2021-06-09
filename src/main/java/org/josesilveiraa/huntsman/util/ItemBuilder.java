@@ -42,21 +42,16 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setCompassTarget(Player player) {
-        if(this.meta instanceof CompassMeta) {
-            CompassMeta meta = (CompassMeta) this.meta;
-            meta.setLodestone(player.getLocation());
-            this.item.setItemMeta(this.meta);
-        }
+        setCompassTarget(player.getLocation());
         return this;
     }
 
-    public ItemBuilder setCompassTarget(Location location) {
+    public void setCompassTarget(Location location) {
         if(this.meta instanceof CompassMeta) {
             CompassMeta meta = (CompassMeta) this.meta;
             meta.setLodestone(location);
             this.item.setItemMeta(this.meta);
         }
-        return this;
     }
 
     public ItemBuilder name(String name) {
