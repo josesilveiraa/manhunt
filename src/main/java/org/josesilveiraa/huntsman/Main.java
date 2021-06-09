@@ -3,6 +3,7 @@ package org.josesilveiraa.huntsman;
 import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.josesilveiraa.huntsman.command.ManhuntCommand;
 import org.josesilveiraa.huntsman.listener.PlayerDeathListener;
@@ -56,5 +57,7 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        HandlerList.unregisterAll();
+        Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fdisabled successfully.");
     }
 }
