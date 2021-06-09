@@ -3,13 +3,10 @@ package org.josesilveiraa.huntsman.manager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.josesilveiraa.huntsman.Main;
 import org.josesilveiraa.huntsman.object.Game;
-import org.josesilveiraa.huntsman.util.ItemBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,13 +16,7 @@ public class GameManager {
     public void setupGame(Collection<? extends Player> runners, Player runner) {
         Main.getGame().setOccurring(true);
 
-        ItemStack compass = new ItemBuilder(Material.COMPASS, 1)
-                .name("§aTracker")
-                .lore("§7Use it to track the victim.")
-                .addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1)
-                .flags(ItemFlag.HIDE_ENCHANTS)
-                .setCompassTarget(runner)
-                .build();
+        ItemStack compass = new ItemStack(Material.COMPASS, 1);
 
         for(Player player : runners) {
 
@@ -54,7 +45,7 @@ public class GameManager {
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(new String[] {
                     "",
-                    "§a§lMANHUNT",
+                    "§c§lMANHUNT",
                     "§7* The game has stopped.",
                     ""
             });

@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.josesilveiraa.huntsman.Main;
 
 import java.util.Collection;
-import java.util.Random;
 
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
@@ -18,7 +17,7 @@ public class ManhuntCommand extends BaseCommand {
     @Subcommand("stop")
     @Syntax("<+tag> stop")
     @Description("Stops a game")
-    public static void onStop(Player p, String[] args) {
+    public static void onStop(Player p) {
         if (!Main.getGame().isOccurring()) {
             p.sendMessage("§cThere isn't any game occurring right now.");
             return;
@@ -28,7 +27,7 @@ public class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("start")
-    @Syntax("<+tag> start")
+    @Syntax("<+tag> start [runner]")
     @Description("Starts a game.")
     public static void onStart(Player p, @Optional OnlinePlayer target) {
 
@@ -38,20 +37,41 @@ public class ManhuntCommand extends BaseCommand {
         }
 
         int playerAmount = Bukkit.getOnlinePlayers().size();
+        int minPlayers = Main.getPlugin().getConfig().getInt("general.min-players");
 
-        if (playerAmount < Main.getPlugin().getConfig().getInt("general.min-players")) {
-            p.sendMessage("§cThe plugin needs at least three players to work properly.");
+
+        if (playerAmount < minPlayers) {
+            p.sendMessage("§cThe plugin needs at least " + minPlayers + " players to work properly.");
             return;
         }
 
         if (target != null) {
-            p.sendMessage("§aCreating game, please wait...");
+            if(!target.getPlayer().isOnline()) {
+                return;
+            }
             Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target.getPlayer());
             return;
         }
 
         Player random = random(Bukkit.getOnlinePlayers());
         Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), random);
+    }
+
+    @Subcommand("info")
+    @Syntax("<+tag> info")
+    @Description("Shows detailed info about the game.")
+    public static void onInfo(Player p) {
+        boolean occurring = Main.getGame().isOccurring();
+
+        if(!occurring) {
+            p.sendMessage("§cThere isn't any game occurring right now.");
+            return;
+        }
+
+        p.sendMessage(new String[] {
+                "§7Is the game occurring? §ayes",
+                "§7Target: §c" + Main.getGame().getRunner().getName()
+        });
     }
 
     @HelpCommand
