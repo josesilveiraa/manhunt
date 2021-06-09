@@ -3,19 +3,23 @@ package org.josesilveiraa.huntsman.command;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.huntsman.Main;
 
+import java.util.Collection;
 import java.util.Random;
 
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
 public class ManhuntCommand extends BaseCommand {
 
-    @Subcommand("stop") @Syntax("<+tag> stop") @Description("Stops a game")
+    @Subcommand("stop")
+    @Syntax("<+tag> stop")
+    @Description("Stops a game")
     public static void onStop(Player p, String[] args) {
-        if(!Main.getGame().isOccurring()) {
+        if (!Main.getGame().isOccurring()) {
             p.sendMessage("§cThere isn't any game occurring right now.");
             return;
         }
@@ -23,35 +27,30 @@ public class ManhuntCommand extends BaseCommand {
         Main.getGameManager().stopGame(Main.getGame());
     }
 
-    @Subcommand("start") @Syntax("<+tag> start") @Description("Starts a game.")
-    public static void onStart(Player p, String[] args) {
+    @Subcommand("start")
+    @Syntax("<+tag> start")
+    @Description("Starts a game.")
+    public static void onStart(Player p, @Optional OnlinePlayer target) {
 
-        if(Main.getGame().isOccurring()) {
+        if (Main.getGame().isOccurring()) {
             p.sendMessage("§cThere's already a game occurring.");
             return;
         }
 
         int playerAmount = Bukkit.getOnlinePlayers().size();
 
-        if(playerAmount < 3) {
+        if (playerAmount < Main.getPlugin().getConfig().getInt("general.min-players")) {
             p.sendMessage("§cThe plugin needs at least three players to work properly.");
             return;
         }
 
-        if(args.length != 0) {
-            Player target = Bukkit.getPlayer(args[0]);
-
-            if(target == null || !target.isOnline()) {
-                p.sendMessage("§cWhoops! It looks like this player is invalid or offline.");
-                return;
-            }
-
-            Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target);
+        if (target != null) {
+            p.sendMessage("§aCreating game, please wait...");
+            Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target.getPlayer());
+            return;
         }
 
-
-        Player random = getRandomPlayer();
-
+        Player random = random(Bukkit.getOnlinePlayers());
         Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), random);
     }
 
@@ -66,10 +65,10 @@ public class ManhuntCommand extends BaseCommand {
     }
 
 
-    private static Player getRandomPlayer() {
-        Random rnd = new Random();
-        int i = rnd.nextInt(Bukkit.getOnlinePlayers().size());
-        return (Player) Bukkit.getOnlinePlayers().toArray()[i];
+    private static <T> T random(Collection<T> collection) {
+        int num = (int) (Math.random() * collection.size());
+        for(T t : collection) if (--num < 0) return t;
+        throw new AssertionError();
     }
 
 }

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.josesilveiraa</groupId>
-    <artifactId>huntsman</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>manhunt</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Huntsman</name>

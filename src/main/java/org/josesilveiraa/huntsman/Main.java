@@ -14,8 +14,11 @@ import org.josesilveiraa.huntsman.object.Game;
 public final class Main extends JavaPlugin {
 
     @Getter private static Main plugin;
+
     @Getter private static final Game game = new Game();
+
     @Getter private PaperCommandManager commandManager;
+
     @Getter private static GameManager gameManager;
 
     @Override
@@ -31,6 +34,11 @@ public final class Main extends JavaPlugin {
         initCommands();
         initListeners();
         initGameManager();
+        initConfig();
+    }
+
+    private void initConfig() {
+        saveDefaultConfig();
     }
 
     private void initCommands() {
@@ -58,6 +66,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll();
-        Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fdisabled successfully.");
+        Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fDisabled successfully.");
     }
 }

@@ -53,8 +53,10 @@ public class GameManager {
 
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(new String[] {
+                    "",
                     "§a§lMANHUNT",
-                    "§7Someone just §cstopped §7the game."
+                    "§7* The game has stopped.",
+                    ""
             });
         }
     }
