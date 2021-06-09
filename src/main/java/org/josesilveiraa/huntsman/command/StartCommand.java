@@ -19,7 +19,17 @@ import java.util.UUID;
 @CommandPermission("manhunt.admin")
 public class StartCommand extends BaseCommand {
 
-    @Default @Subcommand("start") @Syntax("<+tag> start") @Description("Starts a game.")
+    @Subcommand("stop") @Syntax("<+tag> stop") @Description("Stops a game")
+    public static void onStop(Player p, String[] args) {
+        if(!Main.getGame().isOccurring()) {
+            p.sendMessage("§cThere isn't any game occurring right now.");
+            return;
+        }
+
+        Main.getGameManager().stopGame(Main.getGame());
+    }
+
+    @Subcommand("start") @Syntax("<+tag> start") @Description("Starts a game.")
     public static void onStart(Player p, String[] args) {
 
         if(Main.getGame().isOccurring()) {

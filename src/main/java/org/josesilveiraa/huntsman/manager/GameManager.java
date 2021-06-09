@@ -1,5 +1,6 @@
 package org.josesilveiraa.huntsman.manager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
@@ -47,6 +48,13 @@ public class GameManager {
             game.setOccurring(false);
             game.setHunters(new ArrayList<>());
             game.setRunner(null);
+        }
+
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage(new String[] {
+                    "§a§lMANHUNT",
+                    "§7Someone just §cstopped §7the game."
+            });
         }
     }
 
