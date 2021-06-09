@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.josesilveiraa.huntsman.command.StartCommand;
+import org.josesilveiraa.huntsman.listener.PlayerDeathListener;
 import org.josesilveiraa.huntsman.listener.PlayerMoveListener;
 import org.josesilveiraa.huntsman.object.Game;
 
@@ -33,6 +34,7 @@ public final class Main extends JavaPlugin {
 
     private void initListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), getPlugin());
     }
 
     private void initCommandManager() {
