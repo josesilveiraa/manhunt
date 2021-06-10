@@ -27,9 +27,9 @@ public class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("start")
-    @Syntax("<+tag> start [runner]")
+    @Syntax("<+tag> start")
     @Description("Starts a game.")
-    public static void onStart(Player p, @Optional OnlinePlayer target) {
+    public static void onStart(Player p) {
 
         if (Main.getGame().isOccurring()) {
             p.sendMessage("§cThere's already a game occurring.");
@@ -42,14 +42,6 @@ public class ManhuntCommand extends BaseCommand {
 
         if (playerAmount < minPlayers) {
             p.sendMessage("§cThe plugin needs at least " + minPlayers + " players to work properly.");
-            return;
-        }
-
-        if (target != null) {
-            if(!target.getPlayer().isOnline()) {
-                return;
-            }
-            Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target.getPlayer());
             return;
         }
 

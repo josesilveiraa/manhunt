@@ -38,11 +38,11 @@
                     <relocations>
                         <relocation>
                             <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>org.josesilveiraa.huntsman.acf</shadedPattern> <!-- Replace this -->
+                            <shadedPattern>org.josesilveiraa.huntsman.acf</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>org.josesilveiraa.huntsman.locales</shadedPattern> <!-- Replace this -->
+                            <shadedPattern>org.josesilveiraa.huntsman.locales</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
