@@ -3,7 +3,6 @@ package org.josesilveiraa.huntsman.command;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
-import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.huntsman.Main;

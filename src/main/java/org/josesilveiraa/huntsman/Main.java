@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.josesilveiraa.huntsman.command.ManhuntCommand;
 import org.josesilveiraa.huntsman.listener.PlayerDeathListener;
+import org.josesilveiraa.huntsman.log.LogManager;
+import org.josesilveiraa.huntsman.log.LogType;
 import org.josesilveiraa.huntsman.manager.GameManager;
 import org.josesilveiraa.huntsman.object.Game;
 
@@ -30,12 +32,25 @@ public final class Main extends JavaPlugin {
     }
 
     private void init() {
+        LogManager.log("Initializing command manager...", LogType.INFO);
         initCommandManager();
+
+        LogManager.log("Enabling unstable APIs...", LogType.INFO);
         enableUnstableApis();
+
+        LogManager.log("Initializing commands...", LogType.INFO);
         initCommands();
+
+        LogManager.log("Initializing listeners...", LogType.INFO);
         initListeners();
+
+        LogManager.log("Initializing game manager...", LogType.INFO);
         initGameManager();
+
+        LogManager.log("Initializing config...", LogType.INFO);
         initConfig();
+
+        LogManager.log("Initializing runnable task...", LogType.INFO);
         initRunnable();
     }
 
@@ -46,11 +61,10 @@ public final class Main extends JavaPlugin {
                 if(Main.getGame().isOccurring()) {
                     for(Player hunter : Main.getGame().getHunters()) {
                         hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
-                        Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fSet " + hunter.getName() + "'s compass target location to " + hunter.getCompassTarget());
                     }
                 }
             }
-        }.runTaskTimerAsynchronously(getPlugin(), 10, 10);
+        }.runTaskTimerAsynchronously(getPlugin(), 5L, 5L);
     }
 
     private void initConfig() {
@@ -81,6 +95,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll();
-        Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fDisabled successfully.");
+        LogManager.log("Disabled successfully", LogType.INFO);
     }
 }
