@@ -1,4 +1,4 @@
-package org.josesilveiraa.huntsman.object;
+package org.josesilveiraa.manhunt.object;
 
 import lombok.Getter;
 import lombok.Setter;

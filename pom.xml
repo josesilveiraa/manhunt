@@ -38,12 +38,16 @@
                     <relocations>
                         <relocation>
                             <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>org.josesilveiraa.huntsman.acf</shadedPattern>
+                            <shadedPattern>org.josesilveiraa.manhunt.acf</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>org.josesilveiraa.huntsman.locales</shadedPattern>
+                            <shadedPattern>org.josesilveiraa.manhunt.locales</shadedPattern>
                         </relocation>
+                        <realocation>
+                            <pattern>fr.mrmicky.fastboard</pattern>
+                            <shadedPattern>org.josesilveiraa.manhunt.fastboard</shadedPattern>
+                        </realocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -71,6 +75,10 @@
             <id>aikar</id>
             <url>https://repo.aikar.co/content/groups/aikar/</url>
         </repository>
+        <repository>
+            <id>sonatype-oss</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -90,6 +98,11 @@
             <groupId>co.aikar</groupId>
             <artifactId>acf-paper</artifactId>
             <version>0.5.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.mrmicky</groupId>
+            <artifactId>fastboard</artifactId>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,12 +1,12 @@
-package org.josesilveiraa.huntsman.manager;
+package org.josesilveiraa.manhunt.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.josesilveiraa.huntsman.Main;
-import org.josesilveiraa.huntsman.object.Game;
+import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.object.Game;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,7 +60,6 @@ public class GameManager {
     }
 
     public boolean isRunner(Player player) {
-
         return Main.getGame().getRunner().getName().equals(player.getName());
     }
 

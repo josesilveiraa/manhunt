@@ -1,29 +1,17 @@
-package org.josesilveiraa.huntsman.command;
+package org.josesilveiraa.manhunt.command;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.josesilveiraa.huntsman.Main;
+import org.josesilveiraa.manhunt.Main;
 
 import java.util.Collection;
 
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
 public class ManhuntCommand extends BaseCommand {
-
-    @Subcommand("stop")
-    @Syntax("<+tag> stop")
-    @Description("Stops a game")
-    public static void onStop(Player p) {
-        if (!Main.getGame().isOccurring()) {
-            p.sendMessage("§cThere isn't any game occurring right now.");
-            return;
-        }
-
-        Main.getGameManager().stopGame(Main.getGame());
-    }
 
     @Subcommand("start")
     @Syntax("<+tag> start")
@@ -38,7 +26,6 @@ public class ManhuntCommand extends BaseCommand {
         int playerAmount = Bukkit.getOnlinePlayers().size();
         int minPlayers = Main.getPlugin().getConfig().getInt("general.min-players");
 
-
         if (playerAmount < minPlayers) {
             p.sendMessage("§cThe plugin needs at least " + minPlayers + " players to work properly.");
             return;
@@ -48,25 +35,20 @@ public class ManhuntCommand extends BaseCommand {
         Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), random);
     }
 
-    @Subcommand("info")
-    @Syntax("<+tag> info")
-    @Description("Shows detailed info about the game.")
-    public static void onInfo(Player p) {
-        boolean occurring = Main.getGame().isOccurring();
-
-        if(!occurring) {
+    @Subcommand("stop")
+    @Syntax("<+tag> stop")
+    @Description("Stops a game")
+    public static void onStop(Player p) {
+        if (!Main.getGame().isOccurring()) {
             p.sendMessage("§cThere isn't any game occurring right now.");
             return;
         }
 
-        p.sendMessage(new String[] {
-                "§7Is the game occurring? §ayes",
-                "§7Target: §c" + Main.getGame().getRunner().getName()
-        });
+        Main.getGameManager().stopGame(Main.getGame());
     }
 
     @HelpCommand
-    public static void onHelp(Player p, CommandHelp help) {
+    public static void onHelp(CommandHelp help) {
         help.showHelp();
     }
 

@@ -1,4 +1,4 @@
-package org.josesilveiraa.huntsman.util;
+package org.josesilveiraa.manhunt.util;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;

@@ -1,4 +1,4 @@
-package org.josesilveiraa.huntsman.log;
+package org.josesilveiraa.manhunt.log;
 
 import org.bukkit.Bukkit;
 
