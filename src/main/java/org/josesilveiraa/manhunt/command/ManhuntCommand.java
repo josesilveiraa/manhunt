@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.config.Config;
 
 import java.util.Collection;
 
@@ -24,10 +25,9 @@ public class ManhuntCommand extends BaseCommand {
         }
 
         int playerAmount = Bukkit.getOnlinePlayers().size();
-        int minPlayers = Main.getPlugin().getConfig().getInt("general.min-players");
 
-        if (playerAmount < minPlayers) {
-            p.sendMessage("§cThe plugin needs at least " + minPlayers + " players to work properly.");
+        if (playerAmount < Config.MIN_PLAYERS) {
+            p.sendMessage("§cThe plugin needs at least " + Config.MIN_PLAYERS + " players to work properly.");
             return;
         }
 

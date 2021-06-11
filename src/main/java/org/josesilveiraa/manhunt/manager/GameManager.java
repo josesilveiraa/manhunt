@@ -6,11 +6,12 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.config.Config;
 import org.josesilveiraa.manhunt.object.Game;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
+import java.util.List;
 
 public class GameManager {
 
@@ -21,24 +22,20 @@ public class GameManager {
 
         for(Player player : runners) {
 
+            player.sendMessage(arrayListToArray(Config.GAME_STARTED_MESSAGE));
+
             if(player.getName().equals(runner.getName())) {
                 continue;
             }
 
-            String hunterTitle = Objects.requireNonNull(Main.getPlugin().getConfig().getString("messages.title.hunter.title")).replace("&", "§");
-            String hunterSubtitle = Objects.requireNonNull(Main.getPlugin().getConfig().getString("messages.title.hunter.subtitle")).replace("&", "§");
-
             Main.getGame().getHunters().add(player);
             player.getInventory().addItem(compass);
-            player.sendTitle(hunterTitle, hunterSubtitle, 20, 20, 20);
+            player.sendTitle(Config.STARTED_TITLE_HUNTER, Config.STARTED_SUBTITLE_HUNTER, 20, 20, 20);
             player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
         }
 
-        String runnerTitle = Objects.requireNonNull(Main.getPlugin().getConfig().getString("messages.title.runner.title")).replace("&", "§");
-        String runnerSubtitle = Objects.requireNonNull(Main.getPlugin().getConfig().getString("messages.title.runner.subtitle")).replace("&", "§");
-
         Main.getGame().setRunner(runner);
-        runner.sendTitle(runnerTitle, runnerSubtitle, 20, 20 ,20);
+        runner.sendTitle(Config.STARTED_TITLE_RUNNER, Config.STARTED_SUBTITLE_RUNNER, 20, 20 ,20);
         runner.playSound(runner.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1f, 1f);
     }
 
@@ -50,13 +47,12 @@ public class GameManager {
         }
 
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(new String[] {
-                    "",
-                    "§c§lMANHUNT",
-                    "§7* The game has stopped.",
-                    ""
-            });
+            player.sendMessage(arrayListToArray(Config.GAME_STOPPED_MESSAGE));
         }
+    }
+
+    public String[] arrayListToArray(List<String> arrayList) {
+        return arrayList.toArray(new String[0]);
     }
 
     public boolean isRunner(Player player) {
