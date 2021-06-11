@@ -59,4 +59,9 @@ public class GameManager {
         }
     }
 
+    public boolean isRunner(Player player) {
+
+        return Main.getGame().getRunner().getName().equals(player.getName());
+    }
+
 }

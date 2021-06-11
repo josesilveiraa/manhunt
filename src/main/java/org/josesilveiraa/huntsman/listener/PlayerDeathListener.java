@@ -15,13 +15,13 @@ public class PlayerDeathListener implements Listener {
         Player p = e.getEntity();
 
         if (Main.getGame().isOccurring()) {
-            if (p.getName().equals(Main.getGame().getRunner().getName())) {
+            if (Main.getGameManager().isRunner(p)) {
                 p.getInventory().clear();
-                Main.getGame().setOccurring(false);
+                Main.getGameManager().stopGame(Main.getGame());
                 return;
             }
-            ItemStack compass = new ItemStack(Material.COMPASS, 1);
 
+            ItemStack compass = new ItemStack(Material.COMPASS, 1);
             p.getInventory().addItem(compass);
         }
     }
