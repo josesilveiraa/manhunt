@@ -51,6 +51,15 @@ public class GameManager {
         }
     }
 
+    public void addHunter(Player player) {
+        Main.getGame().getHunters().add(player);
+        player.getInventory().addItem(new ItemStack(Material.COMPASS, 1));
+    }
+
+    public void removeHunter(Player player) {
+        Main.getGame().getHunters().remove(player);
+    }
+
     public String[] arrayListToArray(List<String> arrayList) {
         return arrayList.toArray(new String[0]);
     }

@@ -20,5 +20,4 @@ public class Config {
     public static final String STARTED_SUBTITLE_RUNNER = config.getString("messages.title.runner.subtitle").replace("&", "§");
     public static final String STARTED_TITLE_HUNTER = config.getString("messages.title.hunter.title").replace("&", "§");
     public static final String STARTED_SUBTITLE_HUNTER = config.getString("messages.title.hunter.subtitle").replace("&", "§");
-
 }

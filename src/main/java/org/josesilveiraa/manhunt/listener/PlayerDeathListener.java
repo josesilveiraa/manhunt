@@ -25,5 +25,4 @@ public class PlayerDeathListener implements Listener {
             p.getInventory().addItem(compass);
         }
     }
-
 }

@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.config.Config;
@@ -17,17 +18,17 @@ public class ManhuntCommand extends BaseCommand {
     @Subcommand("start")
     @Syntax("<+tag> start")
     @Description("Starts a game.")
-    public static void onStart(Player p) {
+    public static void onStart(CommandSender sender) {
 
         if (Main.getGame().isOccurring()) {
-            p.sendMessage("§cThere's already a game occurring.");
+            sender.sendMessage("§cThere's already a game occurring.");
             return;
         }
 
         int playerAmount = Bukkit.getOnlinePlayers().size();
 
         if (playerAmount < Config.MIN_PLAYERS) {
-            p.sendMessage("§cThe plugin needs at least " + Config.MIN_PLAYERS + " players to work properly.");
+            sender.sendMessage("§cThe plugin needs at least " + Config.MIN_PLAYERS + " players to work properly.");
             return;
         }
 
@@ -38,9 +39,9 @@ public class ManhuntCommand extends BaseCommand {
     @Subcommand("stop")
     @Syntax("<+tag> stop")
     @Description("Stops a game")
-    public static void onStop(Player p) {
+    public static void onStop(CommandSender sender) {
         if (!Main.getGame().isOccurring()) {
-            p.sendMessage("§cThere isn't any game occurring right now.");
+            sender.sendMessage("§cThere isn't any game occurring right now.");
             return;
         }
 
@@ -53,8 +54,8 @@ public class ManhuntCommand extends BaseCommand {
     }
 
     @CatchUnknown
-    public static void onUnknown(Player p) {
-        p.sendMessage("§cUnknown command. Try /manhunt help for help.");
+    public static void onUnknown(CommandSender sender) {
+        sender.sendMessage("§cUnknown command. Try /manhunt help for help.");
     }
 
 

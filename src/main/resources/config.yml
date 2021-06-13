@@ -3,6 +3,7 @@ general:
 
 messages:
   unknown-subcommand: ''
+
   game-started:
     - '&a&lMANHUNT'
     - '&7* The game has started.'

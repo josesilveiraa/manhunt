@@ -3,14 +3,12 @@ package org.josesilveiraa.manhunt;
 import co.aikar.commands.PaperCommandManager;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.Getter;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.josesilveiraa.manhunt.command.ManhuntCommand;
-import org.josesilveiraa.manhunt.listener.BoardHelperListener;
-import org.josesilveiraa.manhunt.listener.PlayerDeathListener;
+import org.josesilveiraa.manhunt.listener.*;
 import org.josesilveiraa.manhunt.log.*;
 import org.josesilveiraa.manhunt.manager.GameManager;
 import org.josesilveiraa.manhunt.object.Game;
@@ -70,7 +68,6 @@ public final class Main extends JavaPlugin {
             if(Main.getGame().isOccurring()) {
                 for(Player hunter : Main.getGame().getHunters()) {
                     hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
-                    hunter.sendActionBar(Component.text("§cYou're hunting " + Main.getGame().getRunner().getName() + "!"));
                 }
             }
         }, 0, 20);
@@ -99,6 +96,8 @@ public final class Main extends JavaPlugin {
     private void initListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BoardHelperListener(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerLeaveListener(), getPlugin());
     }
 
     private void initGameManager() {
@@ -118,22 +117,22 @@ public final class Main extends JavaPlugin {
             if(isRunner) {
                 board.updateLines(
                         "",
-                        "  §7Player name: §f" + p.getName(),
-                        "  §7Your status: §crunner",
+                        "§fPlayer name: §a" + p.getName(),
+                        "§fYour status: §arunner",
                         "",
-                        "  §7Game status: §aon",
-                        "  §7Goal: §crun away",
+                        "§fGame status: §aon",
+                        "§fGoal: §arun",
                         "",
                         "§eamoojosesilveira.com"
                 );
             } else {
                 board.updateLines(
                         "",
-                        "  §7Player name: §f" + p.getName(),
-                        "  §7Your status: §ahunter",
+                        "§fPlayer name: §a" + p.getName(),
+                        "§fYour status: §ahunter",
                         "",
-                        "  §7Game status: §aon",
-                        "  §7Goal: §chunt the runner",
+                        "§fGame status: §aon",
+                        "§fTarget: §a" + getGame().getRunner().getName(),
                         "",
                         "§eamoojosesilveira.com"
                 );
@@ -141,8 +140,8 @@ public final class Main extends JavaPlugin {
         } else {
             board.updateLines(
                     "",
-                    "  §7Player name: §f" + p.getName(),
-                    "  §7Game status: §coff",
+                    "§fPlayer name: §a" + p.getName(),
+                    "§fGame status: §coff",
                     "",
                     "§eamoojosesilveira.com"
             );
