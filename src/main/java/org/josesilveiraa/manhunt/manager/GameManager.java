@@ -6,7 +6,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.josesilveiraa.manhunt.Main;
-import org.josesilveiraa.manhunt.config.Config;
+import org.josesilveiraa.manhunt.config.Messages;
 import org.josesilveiraa.manhunt.object.Game;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class GameManager {
 
         for(Player player : runners) {
 
-            player.sendMessage(arrayListToArray(Config.GAME_STARTED_MESSAGE));
+            player.sendMessage(arrayListToArray(Messages.GAME_STARTED_MESSAGE));
 
             if(player.getName().equals(runner.getName())) {
                 continue;
@@ -30,12 +30,12 @@ public class GameManager {
 
             Main.getGame().getHunters().add(player);
             player.getInventory().addItem(compass);
-            player.sendTitle(Config.STARTED_TITLE_HUNTER, Config.STARTED_SUBTITLE_HUNTER, 20, 20, 20);
+            player.sendTitle(Messages.STARTED_TITLE_HUNTER, Messages.STARTED_SUBTITLE_HUNTER, 20, 20, 20);
             player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
         }
 
         Main.getGame().setRunner(runner);
-        runner.sendTitle(Config.STARTED_TITLE_RUNNER, Config.STARTED_SUBTITLE_RUNNER, 20, 20 ,20);
+        runner.sendTitle(Messages.STARTED_TITLE_RUNNER, Messages.STARTED_SUBTITLE_RUNNER, 20, 20 ,20);
         runner.playSound(runner.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1f, 1f);
     }
 
@@ -47,7 +47,7 @@ public class GameManager {
         }
 
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(arrayListToArray(Config.GAME_STOPPED_MESSAGE));
+            player.sendMessage(arrayListToArray(Messages.GAME_STOPPED_MESSAGE));
         }
     }
 

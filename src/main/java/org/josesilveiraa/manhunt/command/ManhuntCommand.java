@@ -7,7 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.manhunt.Main;
-import org.josesilveiraa.manhunt.config.Config;
+import org.josesilveiraa.manhunt.config.ConventionalConfig;
+import org.josesilveiraa.manhunt.config.Messages;
 
 import java.util.Collection;
 
@@ -21,14 +22,14 @@ public class ManhuntCommand extends BaseCommand {
     public static void onStart(CommandSender sender) {
 
         if (Main.getGame().isOccurring()) {
-            sender.sendMessage("§cThere's already a game occurring.");
+            sender.sendMessage(Messages.GAME_ALREADY_OCCURRING);
             return;
         }
 
         int playerAmount = Bukkit.getOnlinePlayers().size();
 
-        if (playerAmount < Config.MIN_PLAYERS) {
-            sender.sendMessage("§cThe plugin needs at least " + Config.MIN_PLAYERS + " players to work properly.");
+        if (playerAmount < ConventionalConfig.MIN_PLAYERS) {
+            sender.sendMessage(Messages.MIN_PLAYERS);
             return;
         }
 
@@ -41,7 +42,7 @@ public class ManhuntCommand extends BaseCommand {
     @Description("Stops a game")
     public static void onStop(CommandSender sender) {
         if (!Main.getGame().isOccurring()) {
-            sender.sendMessage("§cThere isn't any game occurring right now.");
+            sender.sendMessage(Messages.NO_GAME_OCCURRING);
             return;
         }
 
@@ -55,7 +56,7 @@ public class ManhuntCommand extends BaseCommand {
 
     @CatchUnknown
     public static void onUnknown(CommandSender sender) {
-        sender.sendMessage("§cUnknown command. Try /manhunt help for help.");
+        sender.sendMessage(Messages.UNKNOWN_COMMAND);
     }
 
 

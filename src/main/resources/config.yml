@@ -1,19 +1,2 @@
 general:
   min-players: 2
-
-messages:
-  unknown-subcommand: ''
-
-  game-started:
-    - '&a&lMANHUNT'
-    - '&7* The game has started.'
-  game-stopped:
-    - '&c&lMANHUNT'
-    - '&7* The game has stopped.'
-  title:
-    hunter:
-      title: "&aYou're the hunter!"
-      subtitle: "&7Hunt the runner."
-    runner:
-      title: "&cYou're the runner!"
-      subtitle: "&7Run away from the hunters."

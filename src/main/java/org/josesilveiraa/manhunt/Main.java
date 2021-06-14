@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.josesilveiraa.manhunt.command.ManhuntCommand;
+import org.josesilveiraa.manhunt.config.Configuration;
 import org.josesilveiraa.manhunt.listener.*;
 import org.josesilveiraa.manhunt.log.*;
 import org.josesilveiraa.manhunt.manager.GameManager;
@@ -28,6 +29,8 @@ public final class Main extends JavaPlugin {
     @Getter private static Main plugin;
 
     @Getter private static final Map<UUID, FastBoard> boards = new HashMap<>();
+
+    @Getter private static Configuration messages;
 
     @Override
     public void onEnable() {
@@ -83,6 +86,8 @@ public final class Main extends JavaPlugin {
 
     private void initConfig() {
         saveDefaultConfig();
+        messages = new Configuration(this, "messages.yml");
+        messages.saveDefaultConfig();
     }
 
     private void initCommands() {
@@ -114,29 +119,16 @@ public final class Main extends JavaPlugin {
         if(getGame().isOccurring()) {
             boolean isRunner = getGameManager().isRunner(p);
 
-            if(isRunner) {
-                board.updateLines(
-                        "",
-                        "§fPlayer name: §a" + p.getName(),
-                        "§fYour status: §arunner",
-                        "",
-                        "§fGame status: §aon",
-                        "§fGoal: §arun",
-                        "",
-                        "§eamoojosesilveira.com"
-                );
-            } else {
-                board.updateLines(
-                        "",
-                        "§fPlayer name: §a" + p.getName(),
-                        "§fYour status: §ahunter",
-                        "",
-                        "§fGame status: §aon",
-                        "§fTarget: §a" + getGame().getRunner().getName(),
-                        "",
-                        "§eamoojosesilveira.com"
-                );
-            }
+            board.updateLines(
+                    "",
+                    "§fPlayer name: §a" + p.getName(),
+                    "§fYour status: §a" + (isRunner ? "§arunner" : "§ahunter"),
+                    "",
+                    "§fGame status: §aon",
+                    (isRunner ? "§fGoal: §arun" : "§fTarget: §a" + getGame().getRunner().getName()),
+                    "",
+                    "§eamoojosesilveira.com"
+            );
         } else {
             board.updateLines(
                     "",
@@ -152,6 +144,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll();
+        Bukkit.getScheduler().cancelTasks(getPlugin());
         LogManager.log("Disabled successfully", LogType.INFO);
     }
 }

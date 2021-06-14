@@ -1,0 +1,19 @@
+messages:
+  unknown-subcommand: '&cUnknown command. Try /manhunt help for more help.'
+  no-game-occurring: "&cThere isn't any game occurring right now."
+  game-already-occurring: "&cThe game is already occurring."
+  not-enough-players: '&cThe plugin needs at least {min} players to work to work correctly.'
+
+  game-started:
+    - '&a&lMANHUNT'
+    - '&7* The game has started.'
+  game-stopped:
+    - '&c&lMANHUNT'
+    - '&7* The game has stopped.'
+  title:
+    hunter:
+      title: "&aYou're the hunter!"
+      subtitle: "&7Hunt the runner."
+    runner:
+      title: "&cYou're the runner!"
+      subtitle: "&7Run away from the hunters."

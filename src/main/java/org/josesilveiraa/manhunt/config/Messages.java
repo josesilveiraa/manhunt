@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("all")
-public class Config {
+public class Messages {
 
-    private static final FileConfiguration config = Main.getPlugin().getConfig();
-
-    public static final int MIN_PLAYERS = config.getInt("general.min-players");
+    private static final FileConfiguration config = Main.getMessages().getConfig();
 
     public static final List<String> GAME_STOPPED_MESSAGE = config.getStringList("messages.game-stopped").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
     public static final List<String> GAME_STARTED_MESSAGE = config.getStringList("messages.game-started").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
@@ -20,4 +18,9 @@ public class Config {
     public static final String STARTED_SUBTITLE_RUNNER = config.getString("messages.title.runner.subtitle").replace("&", "§");
     public static final String STARTED_TITLE_HUNTER = config.getString("messages.title.hunter.title").replace("&", "§");
     public static final String STARTED_SUBTITLE_HUNTER = config.getString("messages.title.hunter.subtitle").replace("&", "§");
+    public static final String UNKNOWN_COMMAND = config.getString("messages.unknown-subcommand").replace("&", "§");
+    public static final String NO_GAME_OCCURRING = config.getString("messages.no-game-occurring").replace("&", "§");
+    public static final String GAME_ALREADY_OCCURRING = config.getString("messages.game-already-occurring").replace("&", "§");
+    public static final String MIN_PLAYERS = config.getString("messages.not-enough-players").replace("&", "§").replace("{min}", String.valueOf(ConventionalConfig.MIN_PLAYERS));
+
 }
