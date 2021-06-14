@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.config.ScoreboardConfig;
 
 public class BoardHelperListener implements Listener {
 
@@ -15,7 +16,7 @@ public class BoardHelperListener implements Listener {
         Player p = e.getPlayer();
 
         FastBoard board = new FastBoard(p);
-        board.updateTitle("§a§lMANHUNT");
+        board.updateTitle(ScoreboardConfig.TITLE);
         Main.getBoards().put(p.getUniqueId(), board);
     }
 

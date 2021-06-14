@@ -1,0 +1,30 @@
+# ----------------------
+#         Manhunt
+#    Scoreboard config
+# ----------------------
+
+scoreboard:
+  title: '&a&lMANHUNT'
+  lines:
+    runner:
+      - ''
+      - '&fPlayer name: &a{name}'
+      - '&fYour status: &arunner'
+      - ''
+      - '&fGame status: &aon'
+      - '&fGoal: &arun'
+      - '&eamoojosesilveira.com'
+    hunter:
+      - ''
+      - '&fPlayer name: &f{name}'
+      - '&fYour status: &ahunter'
+      - ''
+      - '&fGame status: &aon'
+      - '&fTarget: &a{target}'
+      - '&eamoojosesilveira.com'
+    no-game-occurring:
+      - ''
+      - '&fPlayer name: &a{name}'
+      - '&fGame status: &coff'
+      - ''
+      - '&eamoojosesilveira.com'

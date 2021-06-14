@@ -1,3 +1,8 @@
+# ----------------------
+#         Manhunt
+#     Messages config
+# ----------------------
+
 messages:
   unknown-subcommand: '&cUnknown command. Try /manhunt help for more help.'
   no-game-occurring: "&cThere isn't any game occurring right now."

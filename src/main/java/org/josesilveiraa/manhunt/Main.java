@@ -9,6 +9,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.josesilveiraa.manhunt.command.ManhuntCommand;
 import org.josesilveiraa.manhunt.config.Configuration;
+import org.josesilveiraa.manhunt.config.ScoreboardConfig;
 import org.josesilveiraa.manhunt.listener.*;
 import org.josesilveiraa.manhunt.log.*;
 import org.josesilveiraa.manhunt.manager.GameManager;
@@ -17,6 +18,7 @@ import org.josesilveiraa.manhunt.object.Game;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public final class Main extends JavaPlugin {
 
@@ -31,6 +33,8 @@ public final class Main extends JavaPlugin {
     @Getter private static final Map<UUID, FastBoard> boards = new HashMap<>();
 
     @Getter private static Configuration messages;
+
+    @Getter private static Configuration scoreboardConfig;
 
     @Override
     public void onEnable() {
@@ -86,8 +90,12 @@ public final class Main extends JavaPlugin {
 
     private void initConfig() {
         saveDefaultConfig();
+
         messages = new Configuration(this, "messages.yml");
         messages.saveDefaultConfig();
+
+        scoreboardConfig = new Configuration(this, "scoreboard.yml");
+        scoreboardConfig.saveDefaultConfig();
     }
 
     private void initCommands() {
@@ -119,24 +127,13 @@ public final class Main extends JavaPlugin {
         if(getGame().isOccurring()) {
             boolean isRunner = getGameManager().isRunner(p);
 
-            board.updateLines(
-                    "",
-                    "§fPlayer name: §a" + p.getName(),
-                    "§fYour status: §a" + (isRunner ? "§arunner" : "§ahunter"),
-                    "",
-                    "§fGame status: §aon",
-                    (isRunner ? "§fGoal: §arun" : "§fTarget: §a" + getGame().getRunner().getName()),
-                    "",
-                    "§eamoojosesilveira.com"
-            );
+            if(isRunner) {
+                board.updateLines(ScoreboardConfig.RUNNER_LINES.stream().map(it -> it.replace("{name}", p.getName())).collect(Collectors.toList()));
+            } else {
+                board.updateLines(ScoreboardConfig.HUNTER_LINES.stream().map(it -> it.replace("{name}", p.getName())).collect(Collectors.toList()).stream().map(it -> it.replace("{taregt}", getGame().getRunner().getName())).collect(Collectors.toList()));
+            }
         } else {
-            board.updateLines(
-                    "",
-                    "§fPlayer name: §a" + p.getName(),
-                    "§fGame status: §coff",
-                    "",
-                    "§eamoojosesilveira.com"
-            );
+            board.updateLines(ScoreboardConfig.NO_GAME_OCCURRING_LINES.stream().map(it -> it.replace("{name}", p.getName())).collect(Collectors.toList()));
         }
     }
 

@@ -1,2 +1,7 @@
+# ----------------------
+#         Manhunt
+#      General config
+# ----------------------
+
 general:
   min-players: 2
