@@ -6,8 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.josesilveiraa.manhunt.Main;
 
-public class PlayerLeaveListener implements Listener {
-
+public class PlayerQuitListener implements Listener {
     @EventHandler
     public void on(PlayerQuitEvent e) {
 
@@ -16,7 +15,6 @@ public class PlayerLeaveListener implements Listener {
         if(Main.getGame().isOccurring()) {
             Main.getGameManager().removeHunter(p);
         }
-
     }
 
 }

@@ -115,9 +115,8 @@ public final class Main extends JavaPlugin {
 
     private void initListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new BoardHelperListener(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new PlayerLeaveListener(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), getPlugin());
     }
 
     private void initGameManager() {

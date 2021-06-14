@@ -9,7 +9,6 @@ messages:
   game-already-occurring: "&cThe game is already occurring."
   not-enough-players: '&cThe plugin needs at least {min} players to work to work correctly.'
   config-reloaded: '&f{type} &aconfig reloaded successfully.'
-
   game-started:
     - '&a&lMANHUNT'
     - '&7* The game has started.'
