@@ -13,7 +13,8 @@ scoreboard:
       - ''
       - '&fGame status: &aon'
       - '&fGoal: &arun'
-      - '&eamoojosesilveira.com'
+      - ''
+      - '&eyourdomain.com'
     hunter:
       - ''
       - '&fPlayer name: &f{name}'
@@ -21,10 +22,11 @@ scoreboard:
       - ''
       - '&fGame status: &aon'
       - '&fTarget: &a{target}'
-      - '&eamoojosesilveira.com'
+      - ''
+      - '&eyourdomain.com'
     no-game-occurring:
       - ''
       - '&fPlayer name: &a{name}'
       - '&fGame status: &coff'
       - ''
-      - '&eamoojosesilveira.com'
+      - '&eyourdomain.com'
