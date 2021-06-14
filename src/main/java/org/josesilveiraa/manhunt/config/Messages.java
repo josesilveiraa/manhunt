@@ -21,6 +21,7 @@ public class Messages {
     public static final String UNKNOWN_COMMAND = config.getString("messages.unknown-subcommand").replace("&", "§");
     public static final String NO_GAME_OCCURRING = config.getString("messages.no-game-occurring").replace("&", "§");
     public static final String GAME_ALREADY_OCCURRING = config.getString("messages.game-already-occurring").replace("&", "§");
-    public static final String MIN_PLAYERS = config.getString("messages.not-enough-players").replace("&", "§").replace("{min}", String.valueOf(ConventionalConfig.MIN_PLAYERS));
+    public static final String MIN_PLAYERS = config.getString("messages.not-enough-players").replace("&", "§").replace("{min}", String.valueOf(Config.MIN_PLAYERS));
+    public static final String CONFIG_RELOADED = config.getString("messages.config-reloaded").replace("&", "§");
 
 }

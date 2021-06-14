@@ -1,4 +1,4 @@
-package org.josesilveiraa.manhunt.config;
+package org.josesilveiraa.manhunt.config.api;
 
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,7 +11,7 @@ public class Configuration {
 
     private final JavaPlugin plugin;
     private final String name;
-    private File file;
+    private final File file;
     private FileConfiguration fileConfiguration;
 
     public <T extends JavaPlugin> Configuration(T plugin, String name) {

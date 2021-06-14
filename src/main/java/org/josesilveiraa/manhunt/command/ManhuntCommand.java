@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.manhunt.Main;
-import org.josesilveiraa.manhunt.config.ConventionalConfig;
+import org.josesilveiraa.manhunt.config.Config;
 import org.josesilveiraa.manhunt.config.Messages;
 
 import java.util.Collection;
@@ -27,7 +27,7 @@ public class ManhuntCommand extends BaseCommand {
 
         int playerAmount = Bukkit.getOnlinePlayers().size();
 
-        if (playerAmount < ConventionalConfig.MIN_PLAYERS) {
+        if (playerAmount < Config.MIN_PLAYERS) {
             sender.sendMessage(Messages.MIN_PLAYERS);
             return;
         }
@@ -66,7 +66,7 @@ public class ManhuntCommand extends BaseCommand {
                 break;
             }
         }
-        sender.sendMessage("§f" + configType.getName() + " §aconfig reloaded successfully.");
+        sender.sendMessage(Messages.CONFIG_RELOADED.replace("{type}", configType.getName()));
     }
 
     @HelpCommand

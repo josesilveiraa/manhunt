@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.josesilveiraa.manhunt.Main;
 
 @SuppressWarnings("all")
-public class ConventionalConfig {
+public class Config {
 
     private static final FileConfiguration config = Main.getPlugin().getConfig();
 
