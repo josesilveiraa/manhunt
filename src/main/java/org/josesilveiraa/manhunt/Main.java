@@ -1,9 +1,13 @@
 package org.josesilveiraa.manhunt;
 
+import co.aikar.commands.BukkitCommandCompletionContext;
+import co.aikar.commands.CommandCompletions;
 import co.aikar.commands.PaperCommandManager;
+import co.aikar.commands.annotation.CommandCompletion;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +19,7 @@ import org.josesilveiraa.manhunt.log.*;
 import org.josesilveiraa.manhunt.manager.GameManager;
 import org.josesilveiraa.manhunt.object.Game;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -52,6 +57,9 @@ public final class Main extends JavaPlugin {
 
         LogManager.log("Initializing commands...", LogType.INFO);
         initCommands();
+
+        LogManager.log("Initializing completions", LogType.INFO);
+        initCompletions();
 
         LogManager.log("Initializing listeners...", LogType.INFO);
         initListeners();
@@ -119,6 +127,17 @@ public final class Main extends JavaPlugin {
 
     private void initCommandManager() {
         commandManager = new PaperCommandManager(getPlugin());
+    }
+
+    private void initCompletions() {
+        CommandCompletions<BukkitCommandCompletionContext> commandCompletions = commandManager.getCommandCompletions();
+        commandCompletions.registerAsyncCompletion("configs", c -> {
+            CommandSender sender = c.getSender();
+            if(sender instanceof Player) {
+                return Arrays.asList("DEFAULT", "SCOREBOARD", "MESSAGES");
+            }
+            return null;
+        });
     }
 
     private void updateBoard(FastBoard board) {

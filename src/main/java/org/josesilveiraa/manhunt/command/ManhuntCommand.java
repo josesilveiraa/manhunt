@@ -17,7 +17,6 @@ import java.util.Collection;
 public class ManhuntCommand extends BaseCommand {
 
     @Subcommand("start")
-    @Syntax("<+tag> start")
     @Description("Starts a game.")
     public static void onStart(CommandSender sender) {
 
@@ -38,7 +37,6 @@ public class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("stop")
-    @Syntax("<+tag> stop")
     @Description("Stops a game")
     public static void onStop(CommandSender sender) {
         if (!Main.getGame().isOccurring()) {
@@ -47,6 +45,28 @@ public class ManhuntCommand extends BaseCommand {
         }
 
         Main.getGameManager().stopGame(Main.getGame());
+    }
+
+    @Subcommand("reload")
+    @Syntax("[config]")
+    @CommandCompletion("@configs")
+    @Description("Reloads a specific config")
+    public static void onReload(CommandSender sender, @Optional @Default("DEFAULT") ConfigType configType) {
+        switch (configType) {
+            case DEFAULT: {
+                Main.getPlugin().reloadConfig();
+                break;
+            }
+            case MESSAGES: {
+                Main.getMessages().reloadConfig();
+                break;
+            }
+            case SCOREBOARD: {
+                Main.getScoreboardConfig().reloadConfig();
+                break;
+            }
+        }
+        sender.sendMessage("§f" + configType.getName() + " §aconfig reloaded successfully.");
     }
 
     @HelpCommand
@@ -64,6 +84,22 @@ public class ManhuntCommand extends BaseCommand {
         int num = (int) (Math.random() * collection.size());
         for(T t : collection) if (--num < 0) return t;
         throw new AssertionError();
+    }
+
+    private enum ConfigType {
+        DEFAULT("Default"),
+        MESSAGES("Messages"),
+        SCOREBOARD("Scoreboard");
+
+        private final String name;
+
+        ConfigType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
 }
