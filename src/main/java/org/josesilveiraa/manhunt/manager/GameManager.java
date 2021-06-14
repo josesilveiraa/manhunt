@@ -15,12 +15,12 @@ import java.util.List;
 
 public class GameManager {
 
-    public void setupGame(Collection<? extends Player> runners, Player runner) {
+    public void setupGame(Collection<? extends Player> players, Player runner) {
         Main.getGame().setOccurring(true);
 
         ItemStack compass = new ItemStack(Material.COMPASS, 1);
 
-        for(Player player : runners) {
+        for(Player player : players) {
 
             player.sendMessage(arrayListToArray(Messages.GAME_STARTED_MESSAGE));
 
