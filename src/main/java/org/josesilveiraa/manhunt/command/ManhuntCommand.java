@@ -14,7 +14,7 @@ import java.util.Collection;
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
 @SuppressWarnings("unused")
-public class ManhuntCommand extends BaseCommand {
+public final class ManhuntCommand extends BaseCommand {
 
     @Subcommand("start")
     @Description("Starts a game.")
@@ -51,7 +51,7 @@ public class ManhuntCommand extends BaseCommand {
     @Syntax("[config]")
     @CommandCompletion("@configs")
     @Description("Reloads a specific config")
-    public static void onReload(CommandSender sender, @Optional @Default("DEFAULT") ConfigType configType) {
+    public static void onReload(CommandSender sender, @Optional @Default("default") ConfigType configType) {
         switch (configType) {
             case DEFAULT: {
                 Main.getPlugin().reloadConfig();

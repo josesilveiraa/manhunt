@@ -6,24 +6,25 @@ import co.aikar.commands.CommandCompletions;
 import co.aikar.commands.PaperCommandManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class CommandRegisterer {
+public final class CommandRegisterer {
 
     private final PaperCommandManager commandManager;
     private final CommandCompletions<BukkitCommandCompletionContext> commandCompletions;
 
-    public CommandRegisterer(PaperCommandManager commandManager) {
+    public CommandRegisterer(@NotNull PaperCommandManager commandManager) {
         this.commandManager = commandManager;
         this.commandCompletions = this.commandManager.getCommandCompletions();
     }
 
-    public void register(BaseCommand baseCommand) {
+    public final void register(@NotNull BaseCommand baseCommand) {
         this.commandManager.registerCommand(baseCommand);
     }
 
-    public void registerCompletion(String completionId, String... completions) {
+    public final void registerCompletion(@NotNull String completionId, @NotNull String... completions) {
         this.commandCompletions.registerAsyncCompletion(completionId, (c) -> {
             CommandSender sender = c.getSender();
             if(sender instanceof Player) {

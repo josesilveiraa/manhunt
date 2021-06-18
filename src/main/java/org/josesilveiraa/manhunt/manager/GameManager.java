@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.config.Messages;
 import org.josesilveiraa.manhunt.object.Game;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class GameManager {
+public final class GameManager {
 
-    public void setupGame(Collection<? extends Player> players, Player runner) {
+    public final void setupGame(@NotNull Collection<? extends Player> players, @NotNull Player runner) {
         Main.getGame().setOccurring(true);
 
         ItemStack compass = new ItemStack(Material.COMPASS, 1);
@@ -40,7 +41,7 @@ public class GameManager {
         runner.playSound(runner.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1f, 1f);
     }
 
-    public void stopGame(Game game) {
+    public final void stopGame(@NotNull Game game) {
         if(game.isOccurring()) {
             game.setOccurring(false);
             game.setHunters(new ArrayList<>());
@@ -52,16 +53,16 @@ public class GameManager {
         }
     }
 
-    public void addHunter(Player player) {
+    public final void addHunter(@NotNull Player player) {
         Main.getGame().getHunters().add(player);
         player.getInventory().addItem(new ItemStack(Material.COMPASS, 1));
     }
 
-    public void removeHunter(Player player) {
+    public final void removeHunter(@NotNull Player player) {
         Main.getGame().getHunters().remove(player);
     }
 
-    public String[] arrayListToArray(List<String> arrayList) {
+    public final String[] arrayListToArray(@NotNull List<String> arrayList) {
         return arrayList.toArray(new String[0]);
     }
 
