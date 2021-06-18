@@ -9,7 +9,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Huntsman</name>
+    <name>Manhunt</name>
 
     <properties>
         <java.version>1.8</java.version>
