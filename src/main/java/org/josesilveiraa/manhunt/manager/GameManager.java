@@ -29,6 +29,7 @@ public class GameManager {
             }
 
             Main.getGame().getHunters().add(player);
+
             player.getInventory().addItem(compass);
             player.sendTitle(Messages.STARTED_TITLE_HUNTER, Messages.STARTED_SUBTITLE_HUNTER, 20, 20, 20);
             player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
@@ -65,7 +66,10 @@ public class GameManager {
     }
 
     public boolean isRunner(Player player) {
-        return Main.getGame().getRunner().getName().equals(player.getName());
+        if(Main.getGame().getRunner() != null) {
+            return Main.getGame().getRunner().getName().equals(player.getName());
+        }
+        return false;
     }
 
 }

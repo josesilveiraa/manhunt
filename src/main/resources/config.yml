@@ -5,3 +5,4 @@
 
 general:
   min-players: 2
+  delay: 10 # seconds

@@ -7,13 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.josesilveiraa.manhunt.Main;
-import org.josesilveiraa.manhunt.config.Config;
-import org.josesilveiraa.manhunt.config.Messages;
+import org.josesilveiraa.manhunt.config.*;
 
 import java.util.Collection;
 
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
+@SuppressWarnings("unused")
 public class ManhuntCommand extends BaseCommand {
 
     @Subcommand("start")

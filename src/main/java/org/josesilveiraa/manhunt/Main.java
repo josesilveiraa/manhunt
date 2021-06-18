@@ -1,12 +1,9 @@
 package org.josesilveiraa.manhunt;
 
-import co.aikar.commands.BukkitCommandCompletionContext;
-import co.aikar.commands.CommandCompletions;
 import co.aikar.commands.PaperCommandManager;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,10 +12,11 @@ import org.josesilveiraa.manhunt.config.api.Configuration;
 import org.josesilveiraa.manhunt.config.ScoreboardConfig;
 import org.josesilveiraa.manhunt.listener.*;
 import org.josesilveiraa.manhunt.log.*;
+import org.josesilveiraa.manhunt.manager.CommandRegisterer;
 import org.josesilveiraa.manhunt.manager.GameManager;
 import org.josesilveiraa.manhunt.object.Game;
+import org.josesilveiraa.manhunt.task.CompassSetTask;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -29,6 +27,8 @@ public final class Main extends JavaPlugin {
     @Getter private static final Game game = new Game();
 
     @Getter private PaperCommandManager commandManager;
+
+    @Getter private CommandRegisterer commandRegisterer;
 
     @Getter private static GameManager gameManager;
 
@@ -57,7 +57,7 @@ public final class Main extends JavaPlugin {
         LogManager.log("Initializing commands...", LogType.INFO);
         initCommands();
 
-        LogManager.log("Initializing completions", LogType.INFO);
+        LogManager.log("Initializing completions...", LogType.INFO);
         initCompletions();
 
         LogManager.log("Initializing listeners...", LogType.INFO);
@@ -77,14 +77,7 @@ public final class Main extends JavaPlugin {
     }
 
     private void initRunnable() {
-
-        getServer().getScheduler().runTaskTimer(getPlugin(), () -> {
-            if(Main.getGame().isOccurring()) {
-                for(Player hunter : Main.getGame().getHunters()) {
-                    hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
-                }
-            }
-        }, 0, 20);
+        new CompassSetTask().runTaskTimer(getPlugin(), 0L, 20L);
     }
 
     private void initBoard() {
@@ -106,7 +99,8 @@ public final class Main extends JavaPlugin {
     }
 
     private void initCommands() {
-        getCommandManager().registerCommand(new ManhuntCommand());
+        commandRegisterer = new CommandRegisterer(getCommandManager());
+        commandRegisterer.register(new ManhuntCommand());
     }
 
     private void enableUnstableApis() {
@@ -128,14 +122,7 @@ public final class Main extends JavaPlugin {
     }
 
     private void initCompletions() {
-        CommandCompletions<BukkitCommandCompletionContext> commandCompletions = commandManager.getCommandCompletions();
-        commandCompletions.registerAsyncCompletion("configs", c -> {
-            CommandSender sender = c.getSender();
-            if(sender instanceof Player) {
-                return Arrays.asList("DEFAULT", "SCOREBOARD", "MESSAGES");
-            }
-            return null;
-        });
+        getCommandRegisterer().registerCompletion("configs", "default", "scoreboard", "messages");
     }
 
     private void updateBoard(FastBoard board) {
@@ -159,6 +146,6 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         HandlerList.unregisterAll();
         Bukkit.getScheduler().cancelTasks(getPlugin());
-        LogManager.log("Disabled successfully", LogType.INFO);
+        LogManager.log("Disabled successfully.", LogType.INFO);
     }
 }
