@@ -92,9 +92,9 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
 
         messages = new Configuration(this, "messages.yml");
-        messages.saveDefaultConfig();
-
         scoreboardConfig = new Configuration(this, "scoreboard.yml");
+
+        messages.saveDefaultConfig();
         scoreboardConfig.saveDefaultConfig();
     }
 

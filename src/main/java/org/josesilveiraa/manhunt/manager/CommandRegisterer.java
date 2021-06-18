@@ -8,14 +8,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class CommandRegisterer {
 
     private final PaperCommandManager commandManager;
+    private final CommandCompletions<BukkitCommandCompletionContext> commandCompletions;
 
     public CommandRegisterer(PaperCommandManager commandManager) {
         this.commandManager = commandManager;
+        this.commandCompletions = this.commandManager.getCommandCompletions();
     }
 
     public void register(BaseCommand baseCommand) {
@@ -23,8 +24,7 @@ public class CommandRegisterer {
     }
 
     public void registerCompletion(String completionId, String... completions) {
-        CommandCompletions<BukkitCommandCompletionContext> commandCompletions = this.commandManager.getCommandCompletions();
-        commandCompletions.registerAsyncCompletion(completionId, (c) -> {
+        this.commandCompletions.registerAsyncCompletion(completionId, (c) -> {
             CommandSender sender = c.getSender();
             if(sender instanceof Player) {
                 return Arrays.asList(completions);
@@ -32,16 +32,4 @@ public class CommandRegisterer {
             return null;
         });
     }
-
-    public void registerCompletion(String completionId, List<String> completions) {
-        CommandCompletions<BukkitCommandCompletionContext> commandCompletions = this.commandManager.getCommandCompletions();
-        commandCompletions.registerAsyncCompletion(completionId, (c) -> {
-            CommandSender sender = c.getSender();
-            if(sender instanceof Player) {
-                return completions;
-            }
-            return null;
-        });
-    }
-
 }
