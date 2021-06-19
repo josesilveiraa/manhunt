@@ -20,16 +20,18 @@ public final class UpdateChecker {
 
     private final Main plugin;
     private final String version;
+    private final URL url;
 
+    @SneakyThrows
     public UpdateChecker(@NotNull Main plugin) {
         this.plugin = plugin;
         this.version = "v" + this.plugin.getDescription().getVersion();
+        this.url = new URL("https://api.github.com/repos/Josesilveiraa/manhunt/releases/latest");
     }
 
     @SneakyThrows
     public final void check() {
-        URL url = new URL("https://api.github.com/repos/Josesilveiraa/manhunt/releases/latest");
-        URLConnection connection = url.openConnection();
+        URLConnection connection = this.url.openConnection();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String resp = reader.lines().collect(Collectors.joining("\n"));
@@ -48,8 +50,7 @@ public final class UpdateChecker {
 
     @SneakyThrows
     public final void downloadLatestUpdate() {
-        URL url = new URL("https://api.github.com/repos/Josesilveiraa/manhunt/releases/latest");
-        URLConnection connection = url.openConnection();
+        URLConnection connection = this.url.openConnection();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String resp = reader.lines().collect(Collectors.joining("\n"));
