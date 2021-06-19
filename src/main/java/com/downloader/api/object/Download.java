@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 public class Download {
 
 
-    @Getter @Setter private String fileUri;
+    @Getter @Setter private URL fileUri;
     @Getter @Setter private File outputDir;
     @Getter @Setter private String fileName;
 
@@ -38,14 +38,22 @@ public class Download {
     @Setter @EqualsAndHashCode.Exclude
     private Consumer<Exception> onError;
 
+    @SneakyThrows
     public Download(String fileUri, String fileName, File outputDir) {
+        this.fileUri = new URL(fileUri);
+        this.fileName = fileName;
+        this.outputDir = outputDir;
+    }
+
+    public Download(URL fileUri, String fileName, File outputDir) {
         this.fileUri = fileUri;
         this.fileName = fileName;
         this.outputDir = outputDir;
     }
 
+    @SneakyThrows
     public Download(String fileUri, String fileName) {
-        this.fileUri = fileUri;
+        this.fileUri = new URL(fileUri);
         this.fileName = fileName;
         this.outputDir = new File(""); // Stores the jar where the JVM was invoked
     }
@@ -56,7 +64,7 @@ public class Download {
         Runnable thread = () -> {
             try {
 
-                URL url = new URL(this.fileUri);
+                URL url = this.fileUri;
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 long fileSize = connection.getContentLength();
 

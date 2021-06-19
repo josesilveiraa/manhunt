@@ -23,6 +23,7 @@ messages:
   game-stopped:
     - '&c&lMANHUNT'
     - '&7* The game has stopped.'
+
   title:
     hunter:
       title: "&aYou're the hunter!"

@@ -4,7 +4,6 @@ import com.downloader.api.object.Download;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.SneakyThrows;
-import org.bukkit.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.log.LogManager;
@@ -58,14 +57,12 @@ public final class UpdateChecker {
         JsonObject obj = parser.parse(resp).getAsJsonObject();
 
         String artifact = obj.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
-        String downloadUrl = "https://github.com/Josesilveiraa/manhunt/releases/latest/download/" + artifact;
+        URL downloadUrl = new URL("https://github.com/Josesilveiraa/manhunt/releases/latest/download/" + artifact);
 
         Download download = new Download(downloadUrl, "/update/" + artifact, this.plugin.getDataFolder())
                 .setOnFinish((d -> this.plugin.getLogger().log(Level.INFO, "Downloaded " + artifact + " successfully.")))
                 .setOnError(Throwable::printStackTrace)
-                .setOnFinish((d) -> {
-                    LogManager.log("Update downloaded successfully! You can locate it in the Manhunt directory.", LogType.INFO);
-                });
+                .setOnFinish((d) -> LogManager.log("Update downloaded successfully! You can locate it in the Manhunt directory.", LogType.INFO));
         download.start();
     }
 
