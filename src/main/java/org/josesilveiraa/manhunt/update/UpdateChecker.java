@@ -60,7 +60,7 @@ public final class UpdateChecker {
         String artifact = obj.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
         String downloadUrl = "https://github.com/Josesilveiraa/manhunt/releases/latest/download/" + artifact;
 
-        Download download = new Download(downloadUrl, "/update" + artifact, this.plugin.getDataFolder())
+        Download download = new Download(downloadUrl, "/update/" + artifact, this.plugin.getDataFolder())
                 .setOnFinish((d -> this.plugin.getLogger().log(Level.INFO, "Downloaded " + artifact + " successfully.")))
                 .setOnError(Throwable::printStackTrace)
                 .setOnFinish((d) -> {
