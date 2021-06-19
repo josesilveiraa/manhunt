@@ -43,6 +43,8 @@ public final class Main extends JavaPlugin {
 
     @Getter private static Configuration scoreboardConfig;
 
+    @Getter private static Configuration generalConfig;
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -94,13 +96,13 @@ public final class Main extends JavaPlugin {
     }
 
     private void initConfig() {
-        saveDefaultConfig();
-
         messages = new Configuration(this, "messages.yml");
         scoreboardConfig = new Configuration(this, "scoreboard.yml");
+        generalConfig = new Configuration(this, "general.yml");
 
         messages.saveDefaultConfig();
         scoreboardConfig.saveDefaultConfig();
+        generalConfig.saveDefaultConfig();
     }
 
     private void initCommands() {

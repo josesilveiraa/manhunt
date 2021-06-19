@@ -16,7 +16,6 @@ messages:
     - '&7Runner: &f{runner}'
     - '&7Hunters: &f{hunter_list}'
     - '&7Time elapsed: &f{seconds}&7s'
-
   game-started:
     - '&a&lMANHUNT'
     - '&7* The game has started.'

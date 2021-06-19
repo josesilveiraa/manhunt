@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.config.*;
+import org.josesilveiraa.manhunt.config.api.Configuration;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +21,7 @@ import java.util.List;
 public final class ManhuntCommand extends BaseCommand {
 
     @Subcommand("start")
+    @Syntax("")
     @Description("Starts a game.")
     public static void onStart(CommandSender sender) {
 
@@ -41,6 +42,7 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("stop")
+    @Syntax("")
     @Description("Stops a game")
     public static void onStop(CommandSender sender) {
         if (!Main.getGame().isOccurring()) {
@@ -48,32 +50,12 @@ public final class ManhuntCommand extends BaseCommand {
             return;
         }
 
+        sender.sendMessage("§aGame stopped successfully.");
         Main.getGameManager().stopGame(Main.getGame());
     }
 
-    @Subcommand("reload")
-    @Syntax("[config]")
-    @CommandCompletion("@configs")
-    @Description("Reloads a specific config")
-    public static void onReload(CommandSender sender, @Optional @Default("default") ConfigType configType) {
-        switch (configType) {
-            case DEFAULT: {
-                Main.getPlugin().reloadConfig();
-                break;
-            }
-            case MESSAGES: {
-                Main.getMessages().reloadConfig();
-                break;
-            }
-            case SCOREBOARD: {
-                Main.getScoreboardConfig().reloadConfig();
-                break;
-            }
-        }
-        sender.sendMessage(Messages.CONFIG_RELOADED.replace("{type}", configType.getName()));
-    }
-
     @Subcommand("info")
+    @Syntax("")
     @Description("Shows information about the occurring game")
     public static void onInfo(CommandSender sender) {
         if(!Main.getGame().isOccurring()) {
@@ -91,6 +73,16 @@ public final class ManhuntCommand extends BaseCommand {
             }
         }
         sender.sendMessage(arrayListToArray(messages));
+    }
+
+    @Subcommand("reload")
+    @Syntax("[config]")
+    @CommandCompletion("@configs")
+    @Description("Reloads a specific config")
+    public static void onReload(CommandSender sender, @Optional @Default("default") ConfigType configType) {
+        configType.getCorrespondingFile().reloadConfig();
+
+        sender.sendMessage(Messages.CONFIG_RELOADED.replace("{type}", configType.getName()));
     }
 
     @HelpCommand
@@ -129,18 +121,24 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     private enum ConfigType {
-        DEFAULT("Default"),
-        MESSAGES("Messages"),
-        SCOREBOARD("Scoreboard");
+        DEFAULT("Default", Main.getGeneralConfig()),
+        MESSAGES("Messages", Main.getMessages()),
+        SCOREBOARD("Scoreboard", Main.getScoreboardConfig());
 
         private final String name;
+        private final Configuration correspondingFile;
 
-        ConfigType(String name) {
+        ConfigType(String name, Configuration correspondingFile) {
             this.name = name;
+            this.correspondingFile = correspondingFile;
         }
 
         public String getName() {
             return name;
+        }
+
+        public Configuration getCorrespondingFile() {
+            return correspondingFile;
         }
     }
 
