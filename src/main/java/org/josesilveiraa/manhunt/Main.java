@@ -48,7 +48,6 @@ public final class Main extends JavaPlugin {
         plugin = this;
         init();
         Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fEnabled successfully.");
-        new UpdateChecker(getPlugin()).check();
     }
 
     private void init() {
@@ -83,7 +82,7 @@ public final class Main extends JavaPlugin {
     private void initRunnable() {
         new CompassSetTask().runTaskTimerAsynchronously(getPlugin(), 0L, 20L);
         new GameTimeTask().runTaskTimerAsynchronously(getPlugin(), 20L, 20L);
-        new UpdateCheckerTask().runTaskLaterAsynchronously(getPlugin(), 20L * 10);
+        new UpdateCheckerTask().runTaskLaterAsynchronously(getPlugin(), 20L * 5);
     }
 
     private void initBoard() {
