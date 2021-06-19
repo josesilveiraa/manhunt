@@ -10,7 +10,13 @@ import java.util.List;
 
 @Getter @Setter
 public final class Game {
+
     private List<Player> hunters = new ArrayList<>();
-    @Nullable private Player runner;
+
+    @Nullable
+    private Player runner;
+
     private boolean occurring = false;
+
+    private int totalSeconds;
 }

@@ -16,6 +16,9 @@ import org.josesilveiraa.manhunt.manager.CommandRegisterer;
 import org.josesilveiraa.manhunt.manager.GameManager;
 import org.josesilveiraa.manhunt.object.Game;
 import org.josesilveiraa.manhunt.task.CompassSetTask;
+import org.josesilveiraa.manhunt.task.GameTimeTask;
+import org.josesilveiraa.manhunt.task.UpdateCheckerTask;
+import org.josesilveiraa.manhunt.update.UpdateChecker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +48,7 @@ public final class Main extends JavaPlugin {
         plugin = this;
         init();
         Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fEnabled successfully.");
+        new UpdateChecker(getPlugin()).check();
     }
 
     private void init() {
@@ -77,7 +81,9 @@ public final class Main extends JavaPlugin {
     }
 
     private void initRunnable() {
-        new CompassSetTask().runTaskTimer(getPlugin(), 0L, 20L);
+        new CompassSetTask().runTaskTimerAsynchronously(getPlugin(), 0L, 20L);
+        new GameTimeTask().runTaskTimerAsynchronously(getPlugin(), 20L, 20L);
+        new UpdateCheckerTask().runTaskLaterAsynchronously(getPlugin(), 20L * 10);
     }
 
     private void initBoard() {

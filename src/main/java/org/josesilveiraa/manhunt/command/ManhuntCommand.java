@@ -6,10 +6,14 @@ import co.aikar.commands.annotation.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.config.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
@@ -69,6 +73,26 @@ public final class ManhuntCommand extends BaseCommand {
         sender.sendMessage(Messages.CONFIG_RELOADED.replace("{type}", configType.getName()));
     }
 
+    @Subcommand("info")
+    @Description("Shows information about the occurring game")
+    public static void onInfo(CommandSender sender) {
+        if(!Main.getGame().isOccurring()) {
+            sender.sendMessage(Messages.NO_GAME_OCCURRING);
+            return;
+        }
+
+        List<Player> hunters = Main.getGame().getHunters();
+
+        List<String> messages = new ArrayList<>();
+
+        for(String s : Messages.GAME_INFO) {
+            if (Main.getGame().getRunner() != null) {
+                messages.add(s.replace("{runner}", Main.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Main.getGame().getHunters())).replace("{seconds}", String.valueOf(Main.getGame().getTotalSeconds())));
+            }
+        }
+        sender.sendMessage(arrayListToArray(messages));
+    }
+
     @HelpCommand
     public static void onHelp(CommandHelp help) {
         help.showHelp();
@@ -80,10 +104,28 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
 
+    private static String playerList(List<Player> players) {
+        StringBuilder sb = new StringBuilder();
+
+        for(Player p : players) {
+            if(players.indexOf(p) == players.size() - 1) {
+                sb.append(p.getName());
+                continue;
+            }
+            sb.append(p.getName()).append(",").append(" ");
+        }
+
+        return sb.toString();
+    }
+
     private static <T> T random(Collection<T> collection) {
         int num = (int) (Math.random() * collection.size());
         for(T t : collection) if (--num < 0) return t;
         throw new AssertionError();
+    }
+
+    private static String[] arrayListToArray(@NotNull List<String> arrayList) {
+        return arrayList.toArray(new String[0]);
     }
 
     private enum ConfigType {

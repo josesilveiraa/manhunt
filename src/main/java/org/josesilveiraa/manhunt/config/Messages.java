@@ -13,6 +13,7 @@ public class Messages {
 
     public static final List<String> GAME_STOPPED_MESSAGE = config.getStringList("messages.game-stopped").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
     public static final List<String> GAME_STARTED_MESSAGE = config.getStringList("messages.game-started").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
+    public static final List<String> GAME_INFO = config.getStringList("messages.game-info").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
 
     public static final String STARTED_TITLE_RUNNER = config.getString("messages.title.runner.title").replace("&", "§");
     public static final String STARTED_SUBTITLE_RUNNER = config.getString("messages.title.runner.subtitle").replace("&", "§");
