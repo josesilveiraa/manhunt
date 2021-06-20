@@ -11,7 +11,6 @@ import org.josesilveiraa.manhunt.log.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public final class UpdateChecker {

@@ -82,6 +82,7 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     @HelpCommand
+    @Default
     public static void onHelp(CommandHelp help) {
         help.showHelp();
     }
