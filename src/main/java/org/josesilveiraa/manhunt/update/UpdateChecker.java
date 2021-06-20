@@ -7,7 +7,7 @@ import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.log.LogManager;
-import org.josesilveiraa.manhunt.log.LogType;
+import org.josesilveiraa.manhunt.log.LogLevel;
 
 import java.io.*;
 import java.net.URL;
@@ -19,50 +19,43 @@ public final class UpdateChecker {
 
     private final Main plugin;
     private final String version;
-    private final URL url;
+    private final JsonParser jsonParser;
+    private final String response;
+    private final JsonObject mainObj;
 
     @SneakyThrows
     public UpdateChecker(@NotNull Main plugin) {
         this.plugin = plugin;
         this.version = "v" + this.plugin.getDescription().getVersion();
-        this.url = new URL("https://api.github.com/repos/Josesilveiraa/manhunt/releases/latest");
+        URL url = new URL("https://api.github.com/repos/Josesilveiraa/manhunt/releases/latest");
+        this.jsonParser = new JsonParser();
+        URLConnection urlConnection = url.openConnection();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+        this.response = reader.lines().collect(Collectors.joining("\n"));
+        this.mainObj = this.jsonParser.parse(this.response).getAsJsonObject();
     }
 
     @SneakyThrows
     public final void check() {
-        URLConnection connection = this.url.openConnection();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String resp = reader.lines().collect(Collectors.joining("\n"));
-
-        JsonParser parser = new JsonParser();
-        JsonObject obj = parser.parse(resp).getAsJsonObject();
-        String latestVersion = obj.get("tag_name").getAsString();
+        String latestVersion = this.mainObj.get("tag_name").getAsString();
 
         if(!this.version.equals(latestVersion)) {
-            LogManager.log("A new version is available! The plugin will download it now.", LogType.INFO);
+            LogManager.log("A new version is available! The plugin will download it now.", LogLevel.INFO);
             downloadLatestUpdate();
         } else {
-            LogManager.log("You're using the latest Manhunt version.", LogType.INFO);
+            LogManager.log("You're using the latest Manhunt version (" + this.version + ").", LogLevel.INFO);
         }
     }
 
     @SneakyThrows
     public final void downloadLatestUpdate() {
-        URLConnection connection = this.url.openConnection();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String resp = reader.lines().collect(Collectors.joining("\n"));
-        JsonParser parser = new JsonParser();
-        JsonObject obj = parser.parse(resp).getAsJsonObject();
-
-        String artifact = obj.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
+        String artifact = this.mainObj.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
         URL downloadUrl = new URL("https://github.com/Josesilveiraa/manhunt/releases/latest/download/" + artifact);
 
         Download download = new Download(downloadUrl, "/update/" + artifact, this.plugin.getDataFolder())
                 .setOnFinish((d -> this.plugin.getLogger().log(Level.INFO, "Downloaded " + artifact + " successfully.")))
                 .setOnError(Throwable::printStackTrace)
-                .setOnFinish((d) -> LogManager.log("Update downloaded successfully! You can locate it in the Manhunt directory.", LogType.INFO));
+                .setOnFinish((d) -> LogManager.log("Update downloaded successfully! You can locate it in the Manhunt directory.", LogLevel.INFO));
         download.start();
     }
 

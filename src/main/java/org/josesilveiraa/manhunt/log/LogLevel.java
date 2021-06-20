@@ -1,6 +1,6 @@
 package org.josesilveiraa.manhunt.log;
 
-public enum LogType {
+public enum LogLevel {
     INFO,
     WARN,
     ERROR

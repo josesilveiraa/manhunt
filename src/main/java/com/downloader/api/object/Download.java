@@ -65,13 +65,13 @@ public final class Download {
     public Download(@NotNull String fileUri, @NotNull String fileName) {
         this.fileUri = new URL(fileUri);
         this.fileName = fileName;
-        this.outputDir = new File(""); // Stores the jar where the JVM was invoked
+        this.outputDir = new File("");
     }
 
     public Download(@NotNull URL fileUri, @NotNull String fileName) {
         this.fileUri = fileUri;
         this.fileName = fileName;
-        this.outputDir = new File(""); // Stores the jar where the JVM was invoked
+        this.outputDir = new File("");
     }
 
     public final void start() {
@@ -92,7 +92,6 @@ public final class Download {
                 final byte[] data = new byte[1024];
                 long downloaded = 0;
 
-                // Accept the onStart consumer.
                 if(onStart != null) {
                     onStart.accept(this);
                 }
@@ -122,7 +121,6 @@ public final class Download {
                 outStream.close();
                 inStream.close();
 
-                // Set the finished status to true and accept the onFinish consumer.
                 setFinished(true);
 
                 if(onFinish != null) {

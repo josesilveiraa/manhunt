@@ -12,13 +12,9 @@ import org.josesilveiraa.manhunt.config.api.Configuration;
 import org.josesilveiraa.manhunt.config.ScoreboardConfig;
 import org.josesilveiraa.manhunt.listener.*;
 import org.josesilveiraa.manhunt.log.*;
-import org.josesilveiraa.manhunt.manager.CommandRegisterer;
-import org.josesilveiraa.manhunt.manager.GameManager;
+import org.josesilveiraa.manhunt.manager.*;
 import org.josesilveiraa.manhunt.object.Game;
-import org.josesilveiraa.manhunt.task.CompassSetTask;
-import org.josesilveiraa.manhunt.task.GameTimeTask;
-import org.josesilveiraa.manhunt.task.UpdateCheckerTask;
-import org.josesilveiraa.manhunt.update.UpdateChecker;
+import org.josesilveiraa.manhunt.task.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,31 +49,31 @@ public final class Main extends JavaPlugin {
     }
 
     private void init() {
-        LogManager.log("Initializing command manager...", LogType.INFO);
+        LogManager.log("Initializing command manager...", LogLevel.INFO);
         initCommandManager();
 
-        LogManager.log("Enabling unstable APIs...", LogType.INFO);
+        LogManager.log("Enabling unstable APIs...", LogLevel.INFO);
         enableUnstableApis();
 
-        LogManager.log("Initializing commands...", LogType.INFO);
+        LogManager.log("Initializing commands...", LogLevel.INFO);
         initCommands();
 
-        LogManager.log("Initializing completions...", LogType.INFO);
+        LogManager.log("Initializing completions...", LogLevel.INFO);
         initCompletions();
 
-        LogManager.log("Initializing listeners...", LogType.INFO);
+        LogManager.log("Initializing listeners...", LogLevel.INFO);
         initListeners();
 
-        LogManager.log("Initializing game manager...", LogType.INFO);
+        LogManager.log("Initializing game manager...", LogLevel.INFO);
         initGameManager();
 
-        LogManager.log("Initializing config...", LogType.INFO);
+        LogManager.log("Initializing config...", LogLevel.INFO);
         initConfig();
 
-        LogManager.log("Initializing runnable task...", LogType.INFO);
+        LogManager.log("Initializing runnable task...", LogLevel.INFO);
         initRunnable();
 
-        LogManager.log("Initializing scoreboard...", LogType.INFO);
+        LogManager.log("Initializing scoreboard...", LogLevel.INFO);
         initBoard();
     }
 
@@ -153,6 +149,6 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         HandlerList.unregisterAll();
         Bukkit.getScheduler().cancelTasks(getPlugin());
-        LogManager.log("Disabled successfully.", LogType.INFO);
+        LogManager.log("Disabled successfully.", LogLevel.INFO);
     }
 }

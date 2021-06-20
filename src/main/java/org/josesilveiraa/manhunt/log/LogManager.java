@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 
 public class LogManager {
 
-    public static void log(String message, LogType logType) {
-        switch (logType) {
+    public static void log(String message, LogLevel logLevel) {
+        switch (logLevel) {
             case INFO: {
                 Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §f" + message);
                 break;

@@ -17,11 +17,9 @@ import java.util.List;
 
 @CommandAlias("manhunt")
 @CommandPermission("manhunt.admin")
-@SuppressWarnings("unused")
 public final class ManhuntCommand extends BaseCommand {
 
     @Subcommand("start")
-    @Syntax("")
     @Description("Starts a game.")
     public static void onStart(CommandSender sender) {
 
@@ -42,7 +40,6 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("stop")
-    @Syntax("")
     @Description("Stops a game")
     public static void onStop(CommandSender sender) {
         if (!Main.getGame().isOccurring()) {
@@ -55,7 +52,6 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("info")
-    @Syntax("")
     @Description("Shows information about the occurring game")
     public static void onInfo(CommandSender sender) {
         if(!Main.getGame().isOccurring()) {
