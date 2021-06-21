@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.api.event.GameStartEvent;
+import org.josesilveiraa.manhunt.api.event.GameStopEvent;
 import org.josesilveiraa.manhunt.config.Messages;
 import org.josesilveiraa.manhunt.object.Game;
 
@@ -17,6 +19,13 @@ import java.util.List;
 public final class GameManager {
 
     public final void setupGame(@NotNull Collection<? extends Player> players, @NotNull Player runner) {
+        GameStartEvent event = new GameStartEvent(Main.getGame());
+        Bukkit.getServer().getPluginManager().callEvent(event);
+
+        if(event.isCancelled()) {
+            return;
+        }
+
         Main.getGame().setOccurring(true);
 
         ItemStack compass = new ItemStack(Material.COMPASS, 1);
@@ -43,6 +52,14 @@ public final class GameManager {
 
     public final void stopGame(@NotNull Game game) {
         if(game.isOccurring()) {
+
+            GameStopEvent event = new GameStopEvent(game);
+            Bukkit.getServer().getPluginManager().callEvent(event);
+
+            if(event.isCancelled()) {
+                return;
+            }
+
             game.setOccurring(false);
             game.setHunters(new ArrayList<>());
             game.setRunner(null);
