@@ -40,7 +40,7 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("stop")
-    @Description("Stops a game")
+    @Description("Stops a game.")
     public static void onStop(CommandSender sender) {
         if (!Main.getGame().isOccurring()) {
             sender.sendMessage(Messages.NO_GAME_OCCURRING);
@@ -52,7 +52,7 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     @Subcommand("info")
-    @Description("Shows information about the occurring game")
+    @Description("Shows information about the occurring game.")
     public static void onInfo(CommandSender sender) {
         if(!Main.getGame().isOccurring()) {
             sender.sendMessage(Messages.NO_GAME_OCCURRING);
@@ -73,7 +73,7 @@ public final class ManhuntCommand extends BaseCommand {
     @Subcommand("reload")
     @Syntax("[config]")
     @CommandCompletion("@configs")
-    @Description("Reloads a specific config")
+    @Description("Reloads a specific config.")
     public static void onReload(CommandSender sender, @Optional @Default("default") ConfigType configType) {
         configType.reloadCorrespondingConfig();
         sender.sendMessage(Messages.CONFIG_RELOADED.replace("{type}", configType.getName()));
