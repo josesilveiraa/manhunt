@@ -9,6 +9,7 @@ import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.log.*;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.stream.Collectors;
@@ -19,8 +20,7 @@ public final class UpdateChecker {
     private final String version;
     private final JsonObject mainObj;
 
-    @SneakyThrows
-    public UpdateChecker(@NotNull Main plugin) {
+    public UpdateChecker(@NotNull Main plugin) throws IOException {
         this.plugin = plugin;
         this.version = "v" + this.plugin.getDescription().getVersion();
         URL url = new URL("https://api.github.com/repos/Josesilveiraa/manhunt/releases/latest");
@@ -31,8 +31,7 @@ public final class UpdateChecker {
         this.mainObj = jsonParser.parse(response).getAsJsonObject();
     }
 
-    @SneakyThrows
-    public final void check() {
+    public final void check() throws MalformedURLException {
         String latestVersion = this.mainObj.get("tag_name").getAsString();
 
         if(!this.version.equals(latestVersion)) {
@@ -43,8 +42,7 @@ public final class UpdateChecker {
         }
     }
 
-    @SneakyThrows
-    public final void downloadLatestUpdate() {
+    public final void downloadLatestUpdate() throws MalformedURLException {
         String artifact = this.mainObj.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
         URL downloadUrl = new URL("https://github.com/Josesilveiraa/manhunt/releases/latest/download/" + artifact);
 
@@ -57,7 +55,7 @@ public final class UpdateChecker {
         }
 
         Download download = new Download(downloadUrl, "/update/" + artifact, this.plugin.getDataFolder())
-                .setOnError(Throwable::printStackTrace)
+                .setOnError(d -> LogManager.log("Couldn't check for new updates.", LogLevel.ERROR))
                 .setOnFinish(d -> LogManager.log("Update downloaded successfully! You can locate it in the Manhunt directory.", LogLevel.INFO));
 
         download.start();

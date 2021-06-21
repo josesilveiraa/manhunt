@@ -16,6 +16,7 @@ import org.josesilveiraa.manhunt.object.Game;
 import org.josesilveiraa.manhunt.task.*;
 import org.josesilveiraa.manhunt.update.UpdateChecker;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,7 +51,11 @@ public final class Main extends JavaPlugin {
     }
 
     private void initUpdateCheckerTask() {
-        new UpdateChecker(getPlugin()).check();
+        try {
+            new UpdateChecker(getPlugin()).check();
+        } catch (IOException e) {
+            LogManager.log("Couldn't check for new updates.", LogLevel.ERROR);
+        }
         new UpdateCheckerTask().runTaskTimerAsynchronously(getPlugin(), 20 * 60 * 10, 20 * 60 * 10);
     }
 
