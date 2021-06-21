@@ -1,5 +1,5 @@
 name: Manhunt
-version: 1.3
+version: 1.4
 main: org.josesilveiraa.manhunt.Main
 api-version: 1.16
 authors: [ Josesilveiraa ]
