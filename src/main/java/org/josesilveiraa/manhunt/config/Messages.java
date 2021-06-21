@@ -25,6 +25,8 @@ public class Messages {
     public static final String GAME_ALREADY_OCCURRING = config.getString("messages.game-already-occurring").replace("&", "§");
     public static final String MIN_PLAYERS = config.getString("messages.not-enough-players").replace("&", "§").replace("{min}", String.valueOf(Config.MIN_PLAYERS));
     public static final String CONFIG_RELOADED = config.getString("messages.config-reloaded").replace("&", "§");
+    public static final String GAME_OVER_TITLE = config.getString("messages.title.game-over.title").replace("&", "§");
+    public static final String GAME_OVER_SUBTITLE = config.getString("messages.title.game-over.subtitle").replace("&", "§");
 
 
 }

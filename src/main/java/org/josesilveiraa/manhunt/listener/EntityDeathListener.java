@@ -1,6 +1,7 @@
 package org.josesilveiraa.manhunt.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,6 +42,8 @@ public class EntityDeathListener implements Listener {
 
                     for(Player p : Bukkit.getServer().getOnlinePlayers()) {
                         p.sendMessage(arrayListToArray(messages));
+                        p.sendTitle(Messages.GAME_OVER_TITLE, Messages.GAME_OVER_SUBTITLE, 20, 20, 20);
+                        p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
                     }
                 }
             }

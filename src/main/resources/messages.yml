@@ -34,3 +34,6 @@ messages:
     runner:
       title: "&cYou're the runner!"
       subtitle: "&7Run away from the hunters."
+    game-over:
+      title: '&cGAME OVER'
+      subtitle: '&7The runner has won the game.'

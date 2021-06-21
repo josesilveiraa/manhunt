@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@CommandAlias("manhunt")
+@CommandAlias("manhunt|mh")
 @CommandPermission("manhunt.admin")
 public final class ManhuntCommand extends BaseCommand {
 
@@ -55,7 +55,7 @@ public final class ManhuntCommand extends BaseCommand {
         Main.getGameManager().stopGame(Main.getGame());
     }
 
-    @Subcommand("info")
+    @Subcommand("info|status")
     @Description("Shows information about the occurring game.")
     public static void onInfo(CommandSender sender) {
         if(!Main.getGame().isOccurring()) {
@@ -74,7 +74,7 @@ public final class ManhuntCommand extends BaseCommand {
         sender.sendMessage(arrayListToArray(messages));
     }
 
-    @Subcommand("reload")
+    @Subcommand("reload|rl")
     @Syntax("[config]")
     @CommandCompletion("@configs")
     @Description("Reloads a specific config.")
