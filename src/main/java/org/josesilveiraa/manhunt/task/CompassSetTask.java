@@ -9,7 +9,9 @@ public class CompassSetTask extends BukkitRunnable {
     public void run() {
         if(Main.getGame().isOccurring()) {
             for(Player hunter : Main.getGame().getHunters()) {
-                hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
+                if (Main.getGame().getRunner() != null) {
+                    hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
+                }
             }
         }
     }

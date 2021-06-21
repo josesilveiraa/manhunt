@@ -48,30 +48,10 @@ public final class Download {
     @Setter @EqualsAndHashCode.Exclude @Nullable
     private Consumer<Exception> onError;
 
-    @SneakyThrows
-    public Download(@NotNull String fileUri, @NotNull String fileName, @NotNull File outputDir) {
-        this.fileUri = new URL(fileUri);
-        this.fileName = fileName;
-        this.outputDir = outputDir;
-    }
-
     public Download(@NotNull URL fileUri, @NotNull String fileName, @NotNull File outputDir) {
         this.fileUri = fileUri;
         this.fileName = fileName;
         this.outputDir = outputDir;
-    }
-
-    @SneakyThrows
-    public Download(@NotNull String fileUri, @NotNull String fileName) {
-        this.fileUri = new URL(fileUri);
-        this.fileName = fileName;
-        this.outputDir = new File("");
-    }
-
-    public Download(@NotNull URL fileUri, @NotNull String fileName) {
-        this.fileUri = fileUri;
-        this.fileName = fileName;
-        this.outputDir = new File("");
     }
 
     public final void start() {
