@@ -3,6 +3,7 @@ package org.josesilveiraa.manhunt.command;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,8 +21,10 @@ import java.util.List;
 public final class ManhuntCommand extends BaseCommand {
 
     @Subcommand("start")
+    @Syntax("[player]")
     @Description("Starts a game.")
-    public static void onStart(CommandSender sender) {
+    @CommandCompletion("@players")
+    public static void onStart(CommandSender sender, @Optional OnlinePlayer onlinePlayer) {
 
         if (Main.getGame().isOccurring()) {
             sender.sendMessage(Messages.GAME_ALREADY_OCCURRING);
@@ -35,8 +38,9 @@ public final class ManhuntCommand extends BaseCommand {
             return;
         }
 
-        Player random = random(Bukkit.getOnlinePlayers());
-        Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), random);
+        Player target = onlinePlayer != null ? onlinePlayer.getPlayer() : random(Bukkit.getOnlinePlayers());
+
+        Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target);
     }
 
     @Subcommand("stop")
