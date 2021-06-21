@@ -11,9 +11,10 @@ public class Messages {
 
     private static final FileConfiguration config = Main.getMessages().getConfig();
 
-    public static final List<String> GAME_STOPPED_MESSAGE = config.getStringList("messages.game-stopped").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
-    public static final List<String> GAME_STARTED_MESSAGE = config.getStringList("messages.game-started").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
-    public static final List<String> GAME_INFO = config.getStringList("messages.game-info").stream().map((a) -> a.replace("&", "§")).collect(Collectors.toList());
+    public static final List<String> GAME_STOPPED_MESSAGE = config.getStringList("messages.game-stopped").stream().map(a -> a.replace("&", "§")).collect(Collectors.toList());
+    public static final List<String> GAME_STARTED_MESSAGE = config.getStringList("messages.game-started").stream().map(a -> a.replace("&", "§")).collect(Collectors.toList());
+    public static final List<String> GAME_INFO = config.getStringList("messages.game-info").stream().map(a -> a.replace("&", "§")).collect(Collectors.toList());
+    public static final List<String> GAME_OVER = config.getStringList("messages.game-over").stream().map(a -> a.replace("&", "§")).collect(Collectors.toList());
 
     public static final String STARTED_TITLE_RUNNER = config.getString("messages.title.runner.title").replace("&", "§");
     public static final String STARTED_SUBTITLE_RUNNER = config.getString("messages.title.runner.subtitle").replace("&", "§");
@@ -24,5 +25,6 @@ public class Messages {
     public static final String GAME_ALREADY_OCCURRING = config.getString("messages.game-already-occurring").replace("&", "§");
     public static final String MIN_PLAYERS = config.getString("messages.not-enough-players").replace("&", "§").replace("{min}", String.valueOf(Config.MIN_PLAYERS));
     public static final String CONFIG_RELOADED = config.getString("messages.config-reloaded").replace("&", "§");
+
 
 }

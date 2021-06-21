@@ -113,6 +113,7 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), getPlugin());
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), getPlugin());
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), getPlugin());
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(), getPlugin());
     }
 
     private void initGameManager() {

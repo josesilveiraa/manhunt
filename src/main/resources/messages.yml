@@ -23,6 +23,10 @@ messages:
     - '&c&lMANHUNT'
     - '&7* The game has stopped.'
 
+  game-over:
+    - '&c&lMANHUNT'
+    - '&f{runner} has won the game! Congratulations.'
+
   title:
     hunter:
       title: "&aYou're the hunter!"

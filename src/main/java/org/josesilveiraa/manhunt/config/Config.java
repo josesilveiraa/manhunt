@@ -9,5 +9,4 @@ public class Config {
 
     public static final int MIN_PLAYERS = config.getInt("general.min-players");
 
-
 }
