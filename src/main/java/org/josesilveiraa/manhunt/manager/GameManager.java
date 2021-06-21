@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Main;
-import org.josesilveiraa.manhunt.api.event.GameStartEvent;
-import org.josesilveiraa.manhunt.api.event.GameStopEvent;
+import org.josesilveiraa.manhunt.api.event.game.GameStartEvent;
+import org.josesilveiraa.manhunt.api.event.game.GameStopEvent;
 import org.josesilveiraa.manhunt.config.Messages;
 import org.josesilveiraa.manhunt.object.Game;
 

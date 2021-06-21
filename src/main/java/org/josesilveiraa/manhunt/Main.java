@@ -3,7 +3,6 @@ package org.josesilveiraa.manhunt;
 import co.aikar.commands.PaperCommandManager;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,7 +44,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         init();
-        Bukkit.getConsoleSender().sendMessage("§a[Manhunt] §fEnabled successfully.");
+        getServer().getConsoleSender().sendMessage("§a[Manhunt] §fEnabled successfully.");
     }
 
     private void init() {
@@ -111,9 +110,9 @@ public final class Main extends JavaPlugin {
     }
 
     private void initListeners() {
-        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), getPlugin());
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), getPlugin());
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), getPlugin());
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), getPlugin());
     }
 
     private void initGameManager() {
@@ -148,7 +147,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll();
-        Bukkit.getScheduler().cancelTasks(getPlugin());
+        getServer().getScheduler().cancelTasks(getPlugin());
         LogManager.log("Disabled successfully.", LogLevel.INFO);
     }
 }

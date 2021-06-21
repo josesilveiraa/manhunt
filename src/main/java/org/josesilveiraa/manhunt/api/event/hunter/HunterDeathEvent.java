@@ -1,18 +1,23 @@
-package org.josesilveiraa.manhunt.api.event;
+package org.josesilveiraa.manhunt.api.event.hunter;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.object.Game;
 
-public class GameStopEvent extends Event implements Cancellable {
+public class HunterDeathEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private final Game game;
     private boolean cancelled;
+    private final Player killer;
+    private final Player target;
+    private final Game game;
 
-    public GameStopEvent(Game game) {
+    public HunterDeathEvent(Player killer, Player target, Game game) {
+        this.killer = killer;
+        this.target = target;
         this.game = game;
     }
 
@@ -33,6 +38,14 @@ public class GameStopEvent extends Event implements Cancellable {
 
     public static HandlerList getHandlerList() {
         return handlers;
+    }
+
+    public Player getKiller() {
+        return killer;
+    }
+
+    public Player getTarget() {
+        return target;
     }
 
     public Game getGame() {
