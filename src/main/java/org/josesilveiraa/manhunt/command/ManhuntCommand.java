@@ -59,8 +59,6 @@ public final class ManhuntCommand extends BaseCommand {
             return;
         }
 
-        List<Player> hunters = Main.getGame().getHunters();
-
         List<String> messages = new ArrayList<>();
 
         for(String s : Messages.GAME_INFO) {
@@ -68,6 +66,7 @@ public final class ManhuntCommand extends BaseCommand {
                 messages.add(s.replace("{runner}", Main.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Main.getGame().getHunters())).replace("{seconds}", String.valueOf(Main.getGame().getTotalSeconds())));
             }
         }
+
         sender.sendMessage(arrayListToArray(messages));
     }
 
@@ -76,8 +75,7 @@ public final class ManhuntCommand extends BaseCommand {
     @CommandCompletion("@configs")
     @Description("Reloads a specific config")
     public static void onReload(CommandSender sender, @Optional @Default("default") ConfigType configType) {
-        configType.getCorrespondingFile().reloadConfig();
-
+        configType.reloadCorrespondingConfig();
         sender.sendMessage(Messages.CONFIG_RELOADED.replace("{type}", configType.getName()));
     }
 
@@ -134,8 +132,8 @@ public final class ManhuntCommand extends BaseCommand {
             return name;
         }
 
-        public Configuration getCorrespondingFile() {
-            return correspondingFile;
+        public void reloadCorrespondingConfig() {
+            this.correspondingFile.reloadConfig();
         }
     }
 
