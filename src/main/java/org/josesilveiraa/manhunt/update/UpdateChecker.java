@@ -48,6 +48,10 @@ public final class UpdateChecker {
         String artifact = this.mainObj.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("name").getAsString();
         URL downloadUrl = new URL("https://github.com/Josesilveiraa/manhunt/releases/latest/download/" + artifact);
 
+        File f = new File(this.plugin.getDataFolder(), "/update/");
+
+        if(!f.exists()) f.mkdir();
+
         Download download = new Download(downloadUrl, "/update/" + artifact, this.plugin.getDataFolder())
                 .setOnError(Throwable::printStackTrace)
                 .setOnFinish(d -> LogManager.log("Update downloaded successfully! You can locate it in the Manhunt directory.", LogLevel.INFO));
