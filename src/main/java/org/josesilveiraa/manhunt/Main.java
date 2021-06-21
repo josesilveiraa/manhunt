@@ -143,12 +143,7 @@ public final class Main extends JavaPlugin {
             if(isRunner) {
                 board.updateLines(ScoreboardConfig.RUNNER_LINES.stream().map(it -> it.replace("{name}", p.getName())).collect(Collectors.toList()));
             } else {
-                board.updateLines(ScoreboardConfig.HUNTER_LINES.stream().map(it -> it.replace("{name}", p.getName())).collect(Collectors.toList()).stream().map(it -> {
-                    if (getGame().getRunner() != null) {
-                        return it.replace("{target}", getGame().getRunner().getName());
-                    }
-                    return null;
-                }).collect(Collectors.toList()));
+                board.updateLines(ScoreboardConfig.HUNTER_LINES.stream().map(it -> it.replace("{name}", p.getName()).replace("{target}", getGame().getRunner().getName())).collect(Collectors.toList()));
             }
         } else {
             board.updateLines(ScoreboardConfig.NO_GAME_OCCURRING_LINES.stream().map(it -> it.replace("{name}", p.getName())).collect(Collectors.toList()));

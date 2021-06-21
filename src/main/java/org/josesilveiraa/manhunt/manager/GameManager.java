@@ -84,7 +84,7 @@ public final class GameManager {
     }
 
     public boolean isRunner(Player player) {
-        if(Main.getGame().getRunner() != null) {
+        if(Main.getGame().isOccurring()) {
             return Main.getGame().getRunner().getName().equals(player.getName());
         }
         return false;

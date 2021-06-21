@@ -12,9 +12,9 @@ import org.josesilveiraa.manhunt.Main;
 import org.josesilveiraa.manhunt.config.*;
 import org.josesilveiraa.manhunt.config.api.Configuration;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CommandAlias("manhunt|mh")
 @CommandPermission("manhunt.admin")
@@ -63,13 +63,7 @@ public final class ManhuntCommand extends BaseCommand {
             return;
         }
 
-        List<String> messages = new ArrayList<>();
-
-        for(String s : Messages.GAME_INFO) {
-            if (Main.getGame().getRunner() != null) {
-                messages.add(s.replace("{runner}", Main.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Main.getGame().getHunters())).replace("{seconds}", String.valueOf(Main.getGame().getTotalSeconds())));
-            }
-        }
+        List<String> messages = Messages.GAME_INFO.stream().map(it -> it.replace("{runner}", Main.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Main.getGame().getHunters())).replace("{seconds}", String.valueOf(Main.getGame().getTotalSeconds()))).collect(Collectors.toList());
 
         sender.sendMessage(arrayListToArray(messages));
     }

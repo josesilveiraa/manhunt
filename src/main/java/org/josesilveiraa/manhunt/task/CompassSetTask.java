@@ -7,11 +7,9 @@ import org.josesilveiraa.manhunt.Main;
 public class CompassSetTask extends BukkitRunnable {
     @Override
     public void run() {
-        if(Main.getGame().isOccurring()) {
-            for(Player hunter : Main.getGame().getHunters()) {
-                if (Main.getGame().getRunner() != null) {
-                    hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
-                }
+        if (Main.getGame().isOccurring()) {
+            for (Player hunter : Main.getGame().getHunters()) {
+                hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
             }
         }
     }

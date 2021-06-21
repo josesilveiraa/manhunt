@@ -33,12 +33,7 @@ public class EntityDeathListener implements Listener {
 
                     Main.getGameManager().stopGame(Main.getGame());
 
-                    List<String> messages = Messages.GAME_OVER.stream().map(a -> {
-                        if (Main.getGame().getRunner() != null) {
-                            return a.replace("{runner}", Main.getGame().getRunner().getName());
-                        }
-                        return null;
-                    }).collect(Collectors.toList());
+                    List<String> messages = Messages.GAME_OVER.stream().map(it -> it.replace("{runner}", Main.getGame().getRunner().getName())).collect(Collectors.toList());
 
                     for(Player p : Bukkit.getServer().getOnlinePlayers()) {
                         p.sendMessage(arrayListToArray(messages));
