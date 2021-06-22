@@ -52,7 +52,7 @@ public final class ManhuntCommand extends BaseCommand {
         }
 
         sender.sendMessage("§aGame stopped successfully.");
-        Manhunt.getGameManager().stopGame(Manhunt.getGame());
+        Manhunt.getGameManager().stopGame();
     }
 
     @Subcommand("info|status")

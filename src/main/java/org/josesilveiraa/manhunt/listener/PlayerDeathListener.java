@@ -29,7 +29,7 @@ public class PlayerDeathListener implements Listener {
                 }
 
                 p.getInventory().clear();
-                Manhunt.getGameManager().stopGame(Manhunt.getGame());
+                Manhunt.getGameManager().stopGame();
                 return;
             }
 

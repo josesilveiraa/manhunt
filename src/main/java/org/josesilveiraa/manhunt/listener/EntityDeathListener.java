@@ -31,7 +31,7 @@ public class EntityDeathListener implements Listener {
                         return;
                     }
 
-                    Manhunt.getGameManager().stopGame(Manhunt.getGame());
+                    Manhunt.getGameManager().stopGame();
 
                     List<String> messages = Messages.GAME_OVER.stream().map(it -> it.replace("{runner}", Manhunt.getGame().getRunner().getName())).collect(Collectors.toList());
 

@@ -59,9 +59,11 @@ public final class GameManager {
 
     /**
      * Stops the occurring game.
-     * @param game the game to be stopped (usually the Main class one)
      */
-    public final void stopGame(@NotNull Game game) {
+    public final void stopGame() {
+
+        Game game = Manhunt.getGame();
+
         if(game.isOccurring()) {
 
             GameStopEvent event = new GameStopEvent(game);
