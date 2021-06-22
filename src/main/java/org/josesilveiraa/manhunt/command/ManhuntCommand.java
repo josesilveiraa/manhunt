@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.config.*;
 import org.josesilveiraa.manhunt.config.api.Configuration;
 
@@ -26,7 +26,7 @@ public final class ManhuntCommand extends BaseCommand {
     @CommandCompletion("@players")
     public static void onStart(CommandSender sender, @Optional OnlinePlayer onlinePlayer) {
 
-        if (Main.getGame().isOccurring()) {
+        if (Manhunt.getGame().isOccurring()) {
             sender.sendMessage(Messages.GAME_ALREADY_OCCURRING);
             return;
         }
@@ -40,30 +40,30 @@ public final class ManhuntCommand extends BaseCommand {
 
         Player target = onlinePlayer != null ? onlinePlayer.getPlayer() : random(Bukkit.getOnlinePlayers());
 
-        Main.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target);
+        Manhunt.getGameManager().setupGame(Bukkit.getOnlinePlayers(), target);
     }
 
     @Subcommand("stop")
     @Description("Stops a game.")
     public static void onStop(CommandSender sender) {
-        if (!Main.getGame().isOccurring()) {
+        if (!Manhunt.getGame().isOccurring()) {
             sender.sendMessage(Messages.NO_GAME_OCCURRING);
             return;
         }
 
         sender.sendMessage("§aGame stopped successfully.");
-        Main.getGameManager().stopGame(Main.getGame());
+        Manhunt.getGameManager().stopGame(Manhunt.getGame());
     }
 
     @Subcommand("info|status")
     @Description("Shows information about the occurring game.")
     public static void onInfo(CommandSender sender) {
-        if(!Main.getGame().isOccurring()) {
+        if(!Manhunt.getGame().isOccurring()) {
             sender.sendMessage(Messages.NO_GAME_OCCURRING);
             return;
         }
 
-        List<String> messages = Messages.GAME_INFO.stream().map(it -> it.replace("{runner}", Main.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Main.getGame().getHunters())).replace("{seconds}", String.valueOf(Main.getGame().getTotalSeconds()))).collect(Collectors.toList());
+        List<String> messages = Messages.GAME_INFO.stream().map(it -> it.replace("{runner}", Manhunt.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Manhunt.getGame().getHunters())).replace("{seconds}", String.valueOf(Manhunt.getGame().getTotalSeconds()))).collect(Collectors.toList());
 
         sender.sendMessage(arrayListToArray(messages));
     }
@@ -114,9 +114,9 @@ public final class ManhuntCommand extends BaseCommand {
     }
 
     private enum ConfigType {
-        DEFAULT("Default", Main.getGeneralConfig()),
-        MESSAGES("Messages", Main.getMessages()),
-        SCOREBOARD("Scoreboard", Main.getScoreboardConfig());
+        DEFAULT("Default", Manhunt.getGeneralConfig()),
+        MESSAGES("Messages", Manhunt.getMessages()),
+        SCOREBOARD("Scoreboard", Manhunt.getScoreboardConfig());
 
         private final String name;
         private final Configuration correspondingFile;

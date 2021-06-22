@@ -6,9 +6,11 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.api.event.game.GameStartEvent;
 import org.josesilveiraa.manhunt.api.event.game.GameStopEvent;
+import org.josesilveiraa.manhunt.api.event.hunter.HunterAddedEvent;
+import org.josesilveiraa.manhunt.api.event.hunter.HunterRemovedEvent;
 import org.josesilveiraa.manhunt.config.Messages;
 import org.josesilveiraa.manhunt.object.Game;
 
@@ -18,15 +20,20 @@ import java.util.List;
 
 public final class GameManager {
 
+    /**
+     * Setups a game to play.
+     * @param players the hunters
+     * @param runner the speedrunner
+     */
     public final void setupGame(@NotNull Collection<? extends Player> players, @NotNull Player runner) {
-        GameStartEvent event = new GameStartEvent(Main.getGame());
+        GameStartEvent event = new GameStartEvent(Manhunt.getGame());
         Bukkit.getServer().getPluginManager().callEvent(event);
 
         if(event.isCancelled()) {
             return;
         }
 
-        Main.getGame().setOccurring(true);
+        Manhunt.getGame().setOccurring(true);
 
         ItemStack compass = new ItemStack(Material.COMPASS, 1);
 
@@ -38,18 +45,22 @@ public final class GameManager {
                 continue;
             }
 
-            Main.getGame().getHunters().add(player);
+            Manhunt.getGame().getHunters().add(player);
 
             player.getInventory().addItem(compass);
             player.sendTitle(Messages.STARTED_TITLE_HUNTER, Messages.STARTED_SUBTITLE_HUNTER, 20, 20, 20);
             player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
         }
 
-        Main.getGame().setRunner(runner);
+        Manhunt.getGame().setRunner(runner);
         runner.sendTitle(Messages.STARTED_TITLE_RUNNER, Messages.STARTED_SUBTITLE_RUNNER, 20, 20 ,20);
         runner.playSound(runner.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1f, 1f);
     }
 
+    /**
+     * Stops the occurring game.
+     * @param game the game to be stopped (usually the Main class one)
+     */
     public final void stopGame(@NotNull Game game) {
         if(game.isOccurring()) {
 
@@ -70,13 +81,38 @@ public final class GameManager {
         }
     }
 
+    /**
+     * Adds a player to the hunter list.
+     * @param player the player to be added
+     */
     public final void addHunter(@NotNull Player player) {
-        Main.getGame().getHunters().add(player);
+
+        HunterAddedEvent event = new HunterAddedEvent(player);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+
+        if(event.isCancelled()) {
+            return;
+        }
+
+        Manhunt.getGame().getHunters().add(player);
         player.getInventory().addItem(new ItemStack(Material.COMPASS, 1));
     }
 
+
+    /**
+     * Removes a player from the hunter list
+     * @param player the player to be removed
+     */
     public final void removeHunter(@NotNull Player player) {
-        Main.getGame().getHunters().remove(player);
+
+        HunterRemovedEvent event = new HunterRemovedEvent(player);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+
+        if(event.isCancelled()) {
+            return;
+        }
+
+        Manhunt.getGame().getHunters().remove(player);
     }
 
     public final String[] arrayListToArray(@NotNull List<String> arrayList) {
@@ -84,8 +120,8 @@ public final class GameManager {
     }
 
     public boolean isRunner(Player player) {
-        if(Main.getGame().isOccurring()) {
-            return Main.getGame().getRunner().getName().equals(player.getName());
+        if(Manhunt.getGame().isOccurring()) {
+            return Manhunt.getGame().getRunner().getName().equals(player.getName());
         }
         return false;
     }

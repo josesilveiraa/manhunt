@@ -2,14 +2,14 @@ package org.josesilveiraa.manhunt.task;
 
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 
 public class CompassSetTask extends BukkitRunnable {
     @Override
     public void run() {
-        if (Main.getGame().isOccurring()) {
-            for (Player hunter : Main.getGame().getHunters()) {
-                hunter.setCompassTarget(Main.getGame().getRunner().getLocation());
+        if (Manhunt.getGame().isOccurring()) {
+            for (Player hunter : Manhunt.getGame().getHunters()) {
+                hunter.setCompassTarget(Manhunt.getGame().getRunner().getLocation());
             }
         }
     }

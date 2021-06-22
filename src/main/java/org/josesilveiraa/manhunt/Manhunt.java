@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public final class Main extends JavaPlugin {
+public final class Manhunt extends JavaPlugin {
 
     @Getter private static final Game game = new Game();
 
@@ -32,7 +32,7 @@ public final class Main extends JavaPlugin {
 
     @Getter private static GameManager gameManager;
 
-    @Getter private static Main plugin;
+    @Getter private static Manhunt plugin;
 
     @Getter private static final Map<UUID, FastBoard> boards = new HashMap<>();
 
@@ -47,7 +47,7 @@ public final class Main extends JavaPlugin {
         plugin = this;
         init();
         initUpdateCheckerTask();
-        getServer().getConsoleSender().sendMessage("§a[Manhunt] §fEnabled successfully.");
+        LogManager.log("Enabled successfully.", LogLevel.INFO);
     }
 
     private void initUpdateCheckerTask() {

@@ -1,14 +1,14 @@
 package org.josesilveiraa.manhunt.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScoreboardConfig {
 
-    private static final FileConfiguration config = Main.getScoreboardConfig().getConfig();
+    private static final FileConfiguration config = Manhunt.getScoreboardConfig().getConfig();
 
     @SuppressWarnings("all")
     public static final String TITLE = config.getString("scoreboard.title").replace("&", "§");

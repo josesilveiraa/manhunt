@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.config.ScoreboardConfig;
 
 public class PlayerJoinListener implements Listener {
@@ -14,13 +14,13 @@ public class PlayerJoinListener implements Listener {
     public void on(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
-        if(Main.getGame().isOccurring()) {
-            Main.getGameManager().addHunter(p);
+        if(Manhunt.getGame().isOccurring()) {
+            Manhunt.getGameManager().addHunter(p);
         }
 
         FastBoard board = new FastBoard(p);
         board.updateTitle(ScoreboardConfig.TITLE);
-        Main.getBoards().put(p.getUniqueId(), board);
+        Manhunt.getBoards().put(p.getUniqueId(), board);
     }
 
 }

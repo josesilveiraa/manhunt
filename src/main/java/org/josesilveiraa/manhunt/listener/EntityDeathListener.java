@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.NotNull;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.api.event.game.GameEndEvent;
 import org.josesilveiraa.manhunt.config.Messages;
 
@@ -20,10 +20,10 @@ public class EntityDeathListener implements Listener {
     @EventHandler
     public void on(EntityDeathEvent e) {
         if(e.getEntity() instanceof EnderDragon) {
-            if(Main.getGame().isOccurring()) {
-                if(e.getEntity().getKiller() == Main.getGame().getRunner()) {
+            if(Manhunt.getGame().isOccurring()) {
+                if(e.getEntity().getKiller() == Manhunt.getGame().getRunner()) {
 
-                    GameEndEvent event = new GameEndEvent(Main.getGame().getRunner(), Main.getGame());
+                    GameEndEvent event = new GameEndEvent(Manhunt.getGame().getRunner(), Manhunt.getGame());
                     Bukkit.getServer().getPluginManager().callEvent(event);
 
                     if(event.isCancelled()) {
@@ -31,9 +31,9 @@ public class EntityDeathListener implements Listener {
                         return;
                     }
 
-                    Main.getGameManager().stopGame(Main.getGame());
+                    Manhunt.getGameManager().stopGame(Manhunt.getGame());
 
-                    List<String> messages = Messages.GAME_OVER.stream().map(it -> it.replace("{runner}", Main.getGame().getRunner().getName())).collect(Collectors.toList());
+                    List<String> messages = Messages.GAME_OVER.stream().map(it -> it.replace("{runner}", Manhunt.getGame().getRunner().getName())).collect(Collectors.toList());
 
                     for(Player p : Bukkit.getServer().getOnlinePlayers()) {
                         p.sendMessage(arrayListToArray(messages));

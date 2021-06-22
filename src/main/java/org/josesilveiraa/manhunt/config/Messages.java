@@ -1,7 +1,7 @@
 package org.josesilveiraa.manhunt.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("all")
 public class Messages {
 
-    private static final FileConfiguration config = Main.getMessages().getConfig();
+    private static final FileConfiguration config = Manhunt.getMessages().getConfig();
 
     public static final List<String> GAME_STOPPED_MESSAGE = config.getStringList("messages.game-stopped").stream().map(a -> a.replace("&", "§")).collect(Collectors.toList());
     public static final List<String> GAME_STARTED_MESSAGE = config.getStringList("messages.game-started").stream().map(a -> a.replace("&", "§")).collect(Collectors.toList());

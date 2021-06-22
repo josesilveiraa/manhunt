@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import org.josesilveiraa.manhunt.Main;
+import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.api.event.hunter.HunterDeathEvent;
 import org.josesilveiraa.manhunt.api.event.runner.RunnerDeathEvent;
 
@@ -17,10 +17,10 @@ public class PlayerDeathListener implements Listener {
     public void on(PlayerDeathEvent e) {
         Player p = e.getEntity();
 
-        if (Main.getGame().isOccurring()) {
-            if (Main.getGameManager().isRunner(p)) {
+        if (Manhunt.getGame().isOccurring()) {
+            if (Manhunt.getGameManager().isRunner(p)) {
 
-                RunnerDeathEvent event = new RunnerDeathEvent(p.getKiller(), p, Main.getGame());
+                RunnerDeathEvent event = new RunnerDeathEvent(p.getKiller(), p, Manhunt.getGame());
                 Bukkit.getServer().getPluginManager().callEvent(event);
 
                 if(event.isCancelled()) {
@@ -29,11 +29,11 @@ public class PlayerDeathListener implements Listener {
                 }
 
                 p.getInventory().clear();
-                Main.getGameManager().stopGame(Main.getGame());
+                Manhunt.getGameManager().stopGame(Manhunt.getGame());
                 return;
             }
 
-            HunterDeathEvent event = new HunterDeathEvent(p.getKiller(), p, Main.getGame());
+            HunterDeathEvent event = new HunterDeathEvent(p.getKiller(), p, Manhunt.getGame());
             Bukkit.getServer().getPluginManager().callEvent(event);
 
             if(event.isCancelled()) {
