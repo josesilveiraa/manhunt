@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.config.*;
 import org.josesilveiraa.manhunt.config.api.Configuration;
+import org.josesilveiraa.manhunt.util.ArrayListToArray;
 
 import java.util.Collection;
 import java.util.List;
@@ -65,7 +66,7 @@ public final class ManhuntCommand extends BaseCommand {
 
         List<String> messages = Messages.GAME_INFO.stream().map(it -> it.replace("{runner}", Manhunt.getGame().getRunner().getName()).replace("{hunter_list}", playerList(Manhunt.getGame().getHunters())).replace("{seconds}", String.valueOf(Manhunt.getGame().getTotalSeconds()))).collect(Collectors.toList());
 
-        sender.sendMessage(arrayListToArray(messages));
+        sender.sendMessage(ArrayListToArray.transform(messages));
     }
 
     @Subcommand("reload|rl")
@@ -107,10 +108,6 @@ public final class ManhuntCommand extends BaseCommand {
         int num = (int) (Math.random() * collection.size());
         for(T t : collection) if (--num < 0) return t;
         throw new AssertionError();
-    }
-
-    private static String[] arrayListToArray(@NotNull List<String> arrayList) {
-        return arrayList.toArray(new String[0]);
     }
 
     private enum ConfigType {

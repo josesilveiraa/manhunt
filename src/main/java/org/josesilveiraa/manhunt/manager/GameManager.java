@@ -13,6 +13,7 @@ import org.josesilveiraa.manhunt.api.event.hunter.HunterAddedEvent;
 import org.josesilveiraa.manhunt.api.event.hunter.HunterRemovedEvent;
 import org.josesilveiraa.manhunt.config.Messages;
 import org.josesilveiraa.manhunt.object.Game;
+import org.josesilveiraa.manhunt.util.ArrayListToArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +40,7 @@ public final class GameManager {
 
         for(Player player : players) {
 
-            player.sendMessage(arrayListToArray(Messages.GAME_STARTED_MESSAGE));
+            player.sendMessage(ArrayListToArray.transform(Messages.GAME_STARTED_MESSAGE));
 
             if(player.getName().equals(runner.getName())) {
                 continue;
@@ -79,7 +80,7 @@ public final class GameManager {
         }
 
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(arrayListToArray(Messages.GAME_STOPPED_MESSAGE));
+            player.sendMessage(ArrayListToArray.transform(Messages.GAME_STOPPED_MESSAGE));
         }
     }
 
@@ -115,10 +116,6 @@ public final class GameManager {
         }
 
         Manhunt.getGame().getHunters().remove(player);
-    }
-
-    public final String[] arrayListToArray(@NotNull List<String> arrayList) {
-        return arrayList.toArray(new String[0]);
     }
 
     public boolean isRunner(Player player) {

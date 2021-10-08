@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.josesilveiraa.manhunt.Manhunt;
 import org.josesilveiraa.manhunt.api.event.game.GameEndEvent;
 import org.josesilveiraa.manhunt.config.Messages;
+import org.josesilveiraa.manhunt.util.ArrayListToArray;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,17 +37,13 @@ public class EntityDeathListener implements Listener {
                     List<String> messages = Messages.GAME_OVER.stream().map(it -> it.replace("{runner}", Manhunt.getGame().getRunner().getName())).collect(Collectors.toList());
 
                     for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-                        p.sendMessage(arrayListToArray(messages));
+                        p.sendMessage(ArrayListToArray.transform(messages));
                         p.sendTitle(Messages.GAME_OVER_TITLE, Messages.GAME_OVER_SUBTITLE, 20, 20, 20);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1f, 1f);
                     }
                 }
             }
         }
-    }
-
-    private static String[] arrayListToArray(@NotNull List<String> arrayList) {
-        return arrayList.toArray(new String[0]);
     }
 
 }
