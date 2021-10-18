@@ -28,3 +28,12 @@ jobs:
       with:
         name: 'output'
         path: './target/*.jar'
+    - name: Prerelease
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "Latest Build"
+        files: |
+          target/*.jar
